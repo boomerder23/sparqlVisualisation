@@ -1,0 +1,25 @@
+# SPARQL endpoint queries two additional endpoint and
+# integrates the the results
+# Adapted example from http://www.snee.com/bobdc.blog/2010/01/federated-sparql-queries.html
+
+PREFIX imdb: &lthttp://data.linkedmdb.org/resource/movie/&gt
+PREFIX dcterms: &lthttp://purl.org/dc/terms/&gt
+PREFIX dbpo: &lthttp://dbpedia.org/ontology/&gt
+PREFIX rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#&gt
+
+SELECT ?birthDate ?spouseName ?movieTitle ?movieDate
+WHERE {
+    SERVICE &lthttp://dbpedia.org/sparql&gt {
+        ?actor rdfs:label "Arnold Schwarzenegger"@en ;
+            dbpo:birthDate ?birthDate ;
+            dbpo:spouse ?spouseURI .
+        ?spouseURI rdfs:label ?spouseName .
+        FILTER ( lang(?spouseName) = "en" )
+    }
+    SERVICE &lthttp://data.linkedmdb.org/sparql&gt {
+        ?actor imdb:actor_name "Arnold Schwarzenegger".
+        ?movie imdb:actor ?actor ;
+                dcterms:title ?movieTitle ;
+                dcterms:date ?movieDate .
+    }
+}

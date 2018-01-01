@@ -1,0 +1,16 @@
+# Alle Literal-Attribute des Equipments mit bestimmten Anlagenkennzeichen
+PREFIX mso: &lthttp://eatld.et.tu-dresden.de/mso/&gt
+PREFIX owl: &lthttp://www.w3.org/2002/07/owl#&gt
+PREFIX rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#&gt
+PREFIX xsd: &lthttp://www.w3.org/2001/XMLSchema#&gt
+
+SELECT DISTINCT ?attribute ?literal
+WHERE {
+    _:equipment mso:plantID ?kennzeichen ;
+        ?predicate ?literal .
+    ?predicate a owl:DatatypeProperty ;
+        rdfs:label ?attribute.
+    FILTER regex(?kennzeichen,"A1.T4-V002"^^xsd:string)
+    FILTER ( lang(?attribute) = "de" )
+    FILTER(testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttes)
+}

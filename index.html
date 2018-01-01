@@ -1,0 +1,116 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SPARQL Visualisation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <header>
+    <h1>SPARQL Visualisation Application</h1>
+  </header>
+  
+  <div class="card-group">
+
+    <div class="card">
+      <div class="card">
+        <h3 class="card-header">Query-Log Tabelle</h3>
+        <!--<p class="card-text">Table withe the latest Queries from our SPARQL Proxy</p>-->
+            <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>SPARQL Commands</th>
+                <th>Interaction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-success" id="firstRow">
+                <td>1</td>
+                <td>27.12.17 13:24</td>
+                <td>Success</td>
+                <td>SELECT DISTINCT,FILTER(3)</td>
+                <td>
+	          		<button type="button" class="btn btn-default">
+	              		<i class="fa fa-television" aria-hidden="true"></i> 
+	              		Visualize
+	              	</button>
+	              	<button type="button" class="btn btn-default">
+	              		<i class="fa fa-hashtag" aria-hidden="true"></i> 
+		          		Results
+	      			</button>
+                </td>
+              </tr>
+              <tr id="secondRow">
+                <td>2</td>
+                <td>27.12.17 12:11</td>
+                <td class="table-success">Success</td>
+                <td>SELECT,SERVICE(2)</td>
+                <td>
+          		<button type="button" class="btn btn-default">
+              		<i class="fa fa-television" aria-hidden="true"></i> 
+              		Visualize
+              	</button>
+              	<button type="button" class="btn btn-default">
+              		<i class="fa fa-hashtag" aria-hidden="true"></i> 
+	          		Results
+      			</button>
+                </td>
+              </tr>
+              <tr id="thirdRow">
+                <td>3</td>
+                <td>27.12.17 09:26</td>
+                <td class="table-danger">Failed</td>
+                <td>INSERT,OPTIONAL,BIND,FILTER,MINUS</td>
+                <td>
+          		<button type="button" class="btn btn-default">
+              		<i class="fa fa-television" aria-hidden="true"></i> 
+              		Visualize
+              	</button>
+              	<button type="button" class="btn btn-default">
+              		<i class="fa fa-info-circle" aria-hidden="true"></i>
+	          		Debugging
+      			</button>
+                </td>
+              </tr>
+            </tbody>
+            </table>      
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-header">corresponding Core Query</h3>
+        <div class="card-body" >
+          <p id="coreQuery" style="white-space: pre; overflow-x: scroll;"></p>      
+        </div>
+    </div>
+
+</div>
+  <footer>
+    <h6>TU Dresden</h6>
+  </footer>
+</body>
+<script>
+$(document).ready(function(){
+	$("#coreQuery").load("testQuery1.txt");
+    /* Hier der jQuery-Code */
+    $('#firstRow').click(function(){
+    	$("#coreQuery").load("testQuery1.txt");
+	});
+	$('#secondRow').click(function(){
+    	$("#coreQuery").load("testQuery2.txt");
+	});
+	$('#thirdRow').click(function(){
+    	$("#coreQuery").load("testQuery3.txt");
+	});
+});
+</script>
+</html> 
