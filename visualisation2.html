@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SPARQL Visualisation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <header>
+    <h1>SPARQL Visualisation Application</h1>
+  </header>
+  
+  <div class="card-group">
+
+    <div class="card">      
+      <h3 class="card-header">Query Details</h3>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <label>Id:</label>
+            <input type="text" value="Nummer 2">
+          </div>
+          <div class="col">
+            <label>Date:</label>
+            <input type="text" value="Sunday, 07-Jan-18 10:59:36">
+          </div>
+          <div class="col">
+            <span class="label label-success">Success</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            1 of 1 here PRefix Dropdown
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p id="1coreQuery" style="white-space: pre; overflow-x: scroll;">
+              Hier coreQuery mit formated text
+            </p>            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-header">Query Graph</h3>
+        <div class="card-body" >                
+        </div>
+    </div>
+
+</div>
+  <footer>
+    <h6>TU Dresden</h6>
+  </footer>
+</body>
+<script>
+$(document).ready(function(){
+	$("#coreQuery").load("testQuery1.txt");
+    /* Hier der jQuery-Code */
+    $('#firstRow').click(function(){
+    	$("#coreQuery").load("testQuery1.txt");
+	});
+	$('#secondRow').click(function(){
+    	$("#coreQuery").load("testQuery2.txt");
+	});
+	$('#thirdRow').click(function(){
+      $("#coreQuery").load("testQuery3.txt");
+  });
+
+  $('#viz1,#viz2,#viz3').click(function(){
+      document.location.href ='./visualisation.html';
+  });
+});
+</script>
+</html> 
