@@ -1,0 +1,11 @@
+
+SELECT DISTINCT ?attribute ?literal
+WHERE {
+    _:equipment mso:plantID ?kennzeichen ;
+        ?predicate ?literal .
+    ?predicate a owl:DatatypeProperty ;
+        rdfs:label ?attribute.
+    FILTER regex(?kennzeichen,"A1.T4-V002"^^xsd:string)
+    FILTER ( lang(?attribute) = "de" )
+    FILTER(testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttes)
+}
