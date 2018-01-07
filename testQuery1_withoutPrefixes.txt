@@ -1,11 +1,15 @@
 
-SELECT DISTINCT ?attribute ?literal
+SELECT DISTINCT ?propertyLabel ?propertyValue ?propertyUnit
 WHERE {
-    _:equipment mso:plantID ?kennzeichen ;
-        ?predicate ?literal .
-    ?predicate a owl:DatatypeProperty ;
-        rdfs:label ?attribute.
-    FILTER regex(?kennzeichen,"A1.T4-V002"^^xsd:string)
-    FILTER ( lang(?attribute) = "de" )
-    FILTER(testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttes)
-}
+    {
+        sce:a23411 ?property ?propertyValue.
+        FILTER(isLiteral(?propertyValue))
+    }
+    UNION{
+        sce:a23411 ?property ?quantity.
+        ?quantity mso:numericalValue ?propertyValue;
+                    mso:physicalUnit   ?propertyUnit.
+    }
+    ?property rdfs:label ?propertyLabel.
+    FILTER (lang(?propertyLabel)='de')
+} 
