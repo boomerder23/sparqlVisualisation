@@ -36,7 +36,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="table-success" id="firstRow">
+              <tr class="success" id="firstRow">
                 <td>1</td>
                 <td>27.12.17 13:24</td>
                 <td>Success</td>
@@ -46,7 +46,7 @@
                 <i class="fa fa-television" aria-hidden="true"></i> 
                 Visualize
                 </button>
-                <button  type="button" class="btn btn-default">
+                <button id="res1" type="button" class="btn btn-default">
                   <i class="fa fa-hashtag" aria-hidden="true"></i> 
                 Results
                 </button>
@@ -55,14 +55,14 @@
               <tr id="secondRow">
                 <td>2</td>
                 <td>27.12.17 12:11</td>
-                <td class="table-success">Success</td>
+                <td class="success">Success</td>
                 <td>SELECT,SERVICE(2)</td>
                 <td>
                 <button id="viz2" type="button" class="btn btn-default">
                 <i class="fa fa-television" aria-hidden="true"></i> 
                 Visualize
                 </button>
-                <button type="button" class="btn btn-default">
+                <button id="res2" type="button" class="btn btn-default">
                   <i class="fa fa-hashtag" aria-hidden="true"></i> 
                 Results
             </button>
@@ -71,14 +71,14 @@
               <tr id="thirdRow">
                 <td>3</td>
                 <td>27.12.17 09:26</td>
-                <td class="table-danger">Failed</td>
+                <td class="danger">Failed</td>
                 <td>INSERT,OPTIONAL,BIND,FILTER,MINUS</td>
                 <td>
               <button id="viz3" type="button" class="btn btn-default">
                   <i class="fa fa-television" aria-hidden="true"></i> 
                   Visualize
                 </button>
-                <button type="button" class="btn btn-default">
+                <button id="deb3" type="button" class="btn btn-default">
                   <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Debugging
             </button>
@@ -123,6 +123,12 @@ $(document).ready(function(){
 
   $('#viz1,#viz2,#viz3').click(function(){
     document.location.href ='./visualisation.html';
+  });
+  $('#res1,#res2').click(function(){
+    document.location.href ='./results.html';
+  });
+  $('#deb3').click(function(){
+    document.location.href ='./debugging.html';
   });
 });
 </script>
