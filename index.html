@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>SPARQL Visualisation</title>
@@ -14,15 +14,18 @@
 <div class="container-fluid">
   <header>
     <h1>SPARQL Visualisation Application</h1>
-  </header>
+  </header>  
   
-  <div class="card-group">
+  <div class="row">
 
-    <div class="card">
-      <div class="card">
-        <h3 class="card-header">Query-Log Tabelle</h3>
-        <!--<p class="card-text">Table withe the latest Queries from our SPARQL Proxy</p>-->
-            <table class="table table-bordered table-hover">
+    <div class="col-sm-6"> 
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Query-Log Tabelle</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-bordered table-hover">
             <thead>
               <tr>
                 <th>#</th>
@@ -39,14 +42,14 @@
                 <td>Success</td>
                 <td>SELECT DISTINCT,FILTER(3)</td>
                 <td>
-	          		<button id="viz1" type="button" class="btn btn-default">
-            		<i class="fa fa-television" aria-hidden="true"></i> 
-            		Visualize
-              	</button>
-              	<button  type="button" class="btn btn-default">
-              		<i class="fa fa-hashtag" aria-hidden="true"></i> 
-	          		Results
-	      			  </button>
+                <button id="viz1" type="button" class="btn btn-default">
+                <i class="fa fa-television" aria-hidden="true"></i> 
+                Visualize
+                </button>
+                <button  type="button" class="btn btn-default">
+                  <i class="fa fa-hashtag" aria-hidden="true"></i> 
+                Results
+                </button>
                 </td>
               </tr>
               <tr id="secondRow">
@@ -55,14 +58,14 @@
                 <td class="table-success">Success</td>
                 <td>SELECT,SERVICE(2)</td>
                 <td>
-        		    <button id="viz2" type="button" class="btn btn-default">
-        		    <i class="fa fa-television" aria-hidden="true"></i> 
-            		Visualize
-              	</button>
-              	<button type="button" class="btn btn-default">
-              		<i class="fa fa-hashtag" aria-hidden="true"></i> 
-	          		Results
-      			</button>
+                <button id="viz2" type="button" class="btn btn-default">
+                <i class="fa fa-television" aria-hidden="true"></i> 
+                Visualize
+                </button>
+                <button type="button" class="btn btn-default">
+                  <i class="fa fa-hashtag" aria-hidden="true"></i> 
+                Results
+            </button>
                 </td>
               </tr>
               <tr id="thirdRow">
@@ -71,44 +74,50 @@
                 <td class="table-danger">Failed</td>
                 <td>INSERT,OPTIONAL,BIND,FILTER,MINUS</td>
                 <td>
-          		<button id="viz3" type="button" class="btn btn-default">
-              		<i class="fa fa-television" aria-hidden="true"></i> 
-              		Visualize
-              	</button>
-              	<button type="button" class="btn btn-default">
-              		<i class="fa fa-info-circle" aria-hidden="true"></i>
-	          		Debugging
-      			</button>
+              <button id="viz3" type="button" class="btn btn-default">
+                  <i class="fa fa-television" aria-hidden="true"></i> 
+                  Visualize
+                </button>
+                <button type="button" class="btn btn-default">
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Debugging
+            </button>
                 </td>
               </tr>
             </tbody>
-            </table>      
+            </table>        
+        </div>
+
+      </div>
+      
+    </div>
+
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Query Graph</div>
+        <div class="panel-body">
+          <p id="coreQuery" style="white-space: pre; overflow-x: scroll;"></p>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <h3 class="card-header">corresponding Core Query</h3>
-        <div class="card-body" >
-          <p id="coreQuery" style="white-space: pre; overflow-x: scroll;"></p>      
-        </div>
-    </div>
+  </div>
 
-</div>
   <footer>
     <h6>TU Dresden</h6>
   </footer>
 </body>
 <script>
 $(document).ready(function(){
-	$("#coreQuery").load("testQuery1.txt");
+  $("#coreQuery").load("testQuery1.txt");
     /* Hier der jQuery-Code */
     $('#firstRow').click(function(){
-    	$("#coreQuery").load("testQuery1.txt");
-	});
-	$('#secondRow').click(function(){
-    	$("#coreQuery").load("testQuery2.txt");
-	});
-	$('#thirdRow').click(function(){
+      $("#coreQuery").load("testQuery1.txt");
+  });
+  $('#secondRow').click(function(){
+      $("#coreQuery").load("testQuery2.txt");
+  });
+  $('#thirdRow').click(function(){
       $("#coreQuery").load("testQuery3.txt");
   });
 
