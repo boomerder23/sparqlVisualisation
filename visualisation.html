@@ -24,7 +24,7 @@
           <h3>Query Details</h3>
         </div>
         <div class="panel-body">
-          <div class="row">
+          <div class="row" style="outline: 1px ;outline-style: dashed; ">
             <div class="col-sm-4">
               <p>
                 <label>Id:</label>
@@ -50,37 +50,39 @@
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#prefixes" style="text-align: left;">PREFIX Region <span class="caret"></span></button>
-              <div id="prefixes" class="collapse">
-                <p id="coreQueryPrefixes" style="white-space: pre; overflow-x: auto;">
-                </p>  
+
+              <div class="row" style="outline: 1px ;outline-style: solid; ">
+                <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#prefixes" style="text-align: left;">PREFIX Region <span class="caret"></span></button>
+                <div id="prefixes" class="collapse">
+                  <p id="coreQueryPrefixes" style="white-space: pre; overflow-x: auto;">
+                  </p>  
+                </div>
               </div>
+              
+              <div class="row" style="outline: 1px ;outline-style: solid; ">
+                <div class="col-sm-12">
+                  <p id="coreQuery" style="white-space: pre; overflow-x: auto;">
+                    Hier coreQuery mit formated text
+                  </p>            
+                </div>
+              </div>
+              
+              <div class="row">
+                  <button class="btn">edit & execute again</button>
+                  <button class="btn">copy query to clipboard</button>      
+              </div>
+
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <p id="coreQuery" style="white-space: pre; overflow-x: auto;">
-                Hier coreQuery mit formated text
-              </p>            
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <button class="btn">edit & execute again</button>
-            </div>
-            <div class="col-sm-2">
-              <button class="btn">copy query to clipboard</button>
-            </div>
-            <div class="col-sm-8">
-            </div>              
-          </div>
+          
+          
         </div>
       </div>
     </div>
 
     <div class="col-sm-6">
       <div class="panel panel-default">
-        <div class="panel-heading">Query Graph</div>
+        <div class="panel-heading"><h3>Query Graph</h3></div>
         <div class="panel-body">
           <img src="testQuery1Viz.png" class="img-responsive" alt="TestQuery">
         </div>
