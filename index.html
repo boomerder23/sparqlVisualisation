@@ -130,10 +130,10 @@
         </div>
     
         <div class="panel-footer">
-          <button id="viz4" type="button" class="btn btn-default">
-                <i class="fa fa-television" aria-hidden="true"></i> 
-                Open Visualisation
-                </button> 
+            <button id="viz4" type="button" class="btn btn-default">
+              <i class="fa fa-television" aria-hidden="true"></i> 
+              Open Visualisation
+            </button> 
         </div>
 
       </div>
@@ -155,27 +155,28 @@
             left:'fa fa-television',
             right:'fa fa-arrow-right'            
         }
+    });
+    $('#firstRow').click(function(){
+      $("#coreQuery").load("testQuery1.txt");
+    });
+    $('#secondRow').click(function(){
+      $("#coreQuery").load("testQuery2.txt");
+    });
+    $('#thirdRow').click(function(){
+      $("#coreQuery").load("testQuery3.txt");
+    });
+
+    $('#viz1,#viz2,#viz3,#viz4').click(function(){
+      document.location.href ='./visualisation.html';
+    });
+    $('#res1,#res2').click(function(){
+      document.location.href ='./results.html';
+    });
+    $('#deb3').click(function(){
+      document.location.href ='./debugging.html';
     });  
   });
-  /* Hier der jQuery-Code */
-  $('#firstRow').click(function(){
-    $("#coreQuery").load("testQuery1.txt");
-  });
-  $('#secondRow').click(function(){
-      $("#coreQuery").load("testQuery2.txt");
-  });
-  $('#thirdRow').click(function(){
-      $("#coreQuery").load("testQuery3.txt");
-  });
 
-  $('#viz1,#viz2,#viz3,#viz4').click(function(){
-    document.location.href ='./visualisation.html';
-  });
-  $('#res1,#res2').click(function(){
-    document.location.href ='./results.html';
-  });
-  $('#deb3').click(function(){
-    document.location.href ='./debugging.html';
-  });
+  
 </script>
 </html> 
