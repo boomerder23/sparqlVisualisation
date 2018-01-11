@@ -140,11 +140,12 @@
   </footer>
 </body>
 <script>
-$(document).ready(function(){
-  $("#coreQuery").load("testQuery1.txt");
-    /* Hier der jQuery-Code */
-    $('#firstRow').click(function(){
-      $("#coreQuery").load("testQuery1.txt");
+  $(document).ready(function(){
+    $("#coreQuery").load("testQuery1.txt");  
+  });
+  /* Hier der jQuery-Code */
+  $('#firstRow').click(function(){
+    $("#coreQuery").load("testQuery1.txt");
   });
   $('#secondRow').click(function(){
       $("#coreQuery").load("testQuery2.txt");
@@ -162,6 +163,5 @@ $(document).ready(function(){
   $('#deb3').click(function(){
     document.location.href ='./debugging.html';
   });
-});
 </script>
 </html> 
