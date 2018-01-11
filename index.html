@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/font-awesome.css">
   <link rel="stylesheet" href="css/BootSideMenu.css">
   <link rel="stylesheet" href="css/style.css">
-  
+
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/BootSideMenu.js"></script>
@@ -146,7 +146,12 @@
 </body>
 <script>
   $(document).ready(function(){
-    $("#coreQuery").load("testQuery1.txt");  
+    $("#coreQuery").load("testQuery1.txt");
+    $('#previewGraph').BootSideMenu({
+      side: "right",
+      width: "600px",
+      closeOnClick: false
+    });  
   });
   /* Hier der jQuery-Code */
   $('#firstRow').click(function(){
