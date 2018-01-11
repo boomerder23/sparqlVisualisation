@@ -150,7 +150,11 @@
     $('#previewGraph').BootSideMenu({
       side: "right",
       width: "600px",
-      closeOnClick: false
+      closeOnClick: false,
+      icons:{
+            left:'fa fa-television',
+            right:'fa fa-arrow-right'            
+        }
     });  
   });
   /* Hier der jQuery-Code */
@@ -164,7 +168,7 @@
       $("#coreQuery").load("testQuery3.txt");
   });
 
-  $('#viz1,#viz2,#viz3').click(function(){
+  $('#viz1,#viz2,#viz3,#viz4').click(function(){
     document.location.href ='./visualisation.html';
   });
   $('#res1,#res2').click(function(){
