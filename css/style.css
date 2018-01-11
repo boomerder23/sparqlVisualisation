@@ -5,7 +5,7 @@
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #111;
+    background-color: #e5e5e5;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -30,6 +30,10 @@
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+
+.button-grey {
+    background-color: #c4c4c4;
 }
 
 @media screen and (max-height: 450px) {
