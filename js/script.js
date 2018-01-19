@@ -17,17 +17,18 @@ app.config(function($routeProvider) {
 		.when('/results', {
 			templateUrl : 'pages/results.html',
 			controller : 'resultsController'	
-		})
-})
+		});
 
-app.controller('queryLogController', function($scope){
-	$scope.message = 'Iam the QueryLog Page';
-})
+});
 
-app.controller('visualisationController', function($scope){
+app.controller('queryLogController', function($scope) {
+	$scope.message = 'Iam the QueryLog Page really';
+});
+
+app.controller('visualisationController', function($scope) {
 	$scope.message = 'Iam the Visualisation Page';
-})
+});
 
-app.controller('resultsController', function($scope){
+app.controller('resultsController', function($scope) {
 	$scope.message = 'Iam the Results Page';
-})
+});
