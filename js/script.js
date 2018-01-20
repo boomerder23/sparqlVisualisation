@@ -17,6 +17,10 @@ app.config(function($routeProvider) {
 		.when('/results', {
 			templateUrl : 'pages/results.html',
 			controller : 'resultsController'	
+		})
+		.when('/debugging', {
+			templateUrl : 'pages/debugging.html',
+			controller : 'debuggingController'	
 		});
 
 });
@@ -30,5 +34,9 @@ app.controller('visualisationController', function($scope) {
 });
 
 app.controller('resultsController', function($scope) {
+	$scope.message = 'Iam the Results Page';
+});
+
+app.controller('debuggingController', function($scope) {
 	$scope.message = 'Iam the Results Page';
 });
