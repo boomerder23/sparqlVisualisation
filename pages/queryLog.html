@@ -17,55 +17,25 @@
                 <th>Interaction</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="success">
-                <td>1</td>
-                <td>27.12.17 13:24</td>
-                <td>Success</td>
-                <td>SELECT DISTINCT,FILTER(3)</td>
+              <tr ng-repeat="x in queries" ng-click="showQuery(x)">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ x.time }}</td>
+                <td>{{ x.query }}</td>
+                <td></td>
                 <td>
-                <button id="viz1" type="button" class="btn btn-default">
-                <i class="fa fa-television" aria-hidden="true"></i> 
-                Visualize
-                </button>
-                <button id="res1" type="button" class="btn btn-default">
-                  <i class="fa fa-hashtag" aria-hidden="true"></i> 
-                Results
-                </button>
-                </td>
-              </tr>
-              <tr id="secondRow">
-                <td>2</td>
-                <td>27.12.17 12:11</td>
-                <td class="success">Success</td>
-                <td>SELECT,SERVICE(2)</td>
-                <td>
-                <button id="viz2" type="button" class="btn btn-default">
-                <i class="fa fa-television" aria-hidden="true"></i> 
-                Visualize
-                </button>
-                <button id="res2" type="button" class="btn btn-default">
-                  <i class="fa fa-hashtag" aria-hidden="true"></i> 
-                Results
-            </button>
-                </td>
-              </tr>
-              <tr id="thirdRow">
-                <td>3</td>
-                <td>27.12.17 09:26</td>
-                <td class="danger">Failed</td>
-                <td>INSERT,OPTIONAL,BIND,FILTER,MINUS</td>
-                <td>
-              <button id="viz3" type="button" class="btn btn-default">
+                  <button  ng-click="openVisualisation()" type="button" class="btn btn-default">
                   <i class="fa fa-television" aria-hidden="true"></i> 
                   Visualize
-                </button>
-                <button id="deb3" type="button" class="btn btn-default">
+                  </button>
+                  <button id="deb3" type="button" class="btn btn-default">
                   <i class="fa fa-info-circle" aria-hidden="true"></i>
-                Debugging
-            </button>
-                </td>
+                  Debugging
+                  </button>
+              </td>
+                
               </tr>
+              
+
             </tbody>
             </table>        
         </div>
@@ -80,7 +50,7 @@
           <h3>corresponding Core Query <button class="btn button-grey" id="togglePrevieGraph">Toggle Preview</button></h3>
         </div>
         <div class="panel-body">
-          <p id="coreQuery" style="white-space: pre; overflow-x: scroll;"></p>
+          <p id="coreQuery" ng-bind="coreQuery" style="white-space: pre; overflow-x: scroll;"></p>
         </div>
       </div>
     </div>
