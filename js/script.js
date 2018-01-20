@@ -25,8 +25,22 @@ app.config(function($routeProvider) {
 
 });
 
-app.controller('queryLogController', function($scope) {
-	$scope.message = 'Iam the QueryLog Page really';
+app.controller('queryLogController', function($scope, $http) {
+	
+	//get Queries from Proxy, when Click Refresh Button
+	$scope.getQueries = function() {
+		console.log('getQueries');
+		$http.get('http://localhost:5060')
+		.then(function (response) {
+        	//first function handles success
+        	console.log('success');
+        	$scope.queries = response.data;
+        }, function(response) {
+            console.log('failed');    	
+        	$scope.httpMessage = 'Failed to get Queries. Code: ' + response.status;
+        });
+	}
+
 });
 
 app.controller('visualisationController', function($scope) {
