@@ -28,6 +28,7 @@ app.config(function($routeProvider) {
 app.controller('queryLogController', function($scope, $http) {
 	
 	//get Queries from Proxy, when Click Refresh Button
+	//https://www.w3schools.com/angular/angular_http.asp
 	$scope.getQueries = function() {
 		console.log('getQueries');
 		$http.get('http://localhost:5060')
@@ -39,6 +40,13 @@ app.controller('queryLogController', function($scope, $http) {
             console.log('failed');    	
         	$scope.httpMessage = 'Failed to get Queries. Code: ' + response.status;
         });
+	}
+
+	//show Query of log Entry
+	$scope.showQuery = function(query) {
+		console.log('inside showQuery');
+		console.log(query.time);
+		$scope.coreQuery = query.query;
 	}
 
 });
