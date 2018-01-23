@@ -67,43 +67,12 @@ app.controller('queryLogController', function($scope, $http) {
 		return keywordString;	
 	};
 
-	
-	
-	/*queries = $http.get('http://localhost:5060').then(function (response) {
-		console.log("success");
-		$scope.queries = response
-	});
-	*/
-
-
-	
-	/*$scope.getQueries = function (){
-		console.log('getQueries function');
-		$http.get('http://localhost:5060')
-		.then(function (response) {
-        	//first function handles success
-        	console.log('success');
-        //	queries = response.data;
-        }, function(response) {
-            console.log('failed');    	
-        	$scope.httpMessage = 'Failed to get Queries. Code: ' + response.status;
-        });
-	};
-	*/
-
-	//$scope.getQueries();
-	//call function at startup
-	
-
 	//show Query of log Entry
-	/*$scope.showQuery = function(query) {
+	$scope.showQuery = function(query) {
 		console.log('inside showQuery');
 		console.log(query.time);
-		$scope.coreQuery = query.query;
-	};
-	*/
-
-	//console.log(this.queries);
+		$scope.coreQuery = query;
+	};	
 	
 });
 
