@@ -17,11 +17,11 @@
                 <th>Interaction</th>
               </tr>
             </thead>
-              <tr ng-repeat="x in queries" ng-click="showQuery(x)">
+              <tr ng-repeat="x in receivedQueries" ng-click="showQuery(x.coreQuery)">
                 <td>{{ $index + 1 }}</td>
-                <td>{{ x.time }}</td>
-                <td>{{ x.query }}</td>
-                <td></td>
+                <td>{{ x.date }}</td>
+                <td>{{ x.status }}</td>
+                <td>{{ x.keywordString }}</td>
                 <td>
                   <button  ng-click="openVisualisation()" type="button" class="btn btn-default">
                   <i class="fa fa-television" aria-hidden="true"></i> 
