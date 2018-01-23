@@ -25,30 +25,86 @@ app.config(function($routeProvider) {
 
 });
 
+
 app.controller('queryLogController', function($scope, $http) {
-	
 	//get Queries from Proxy, when Click Refresh Button
 	//https://www.w3schools.com/angular/angular_http.asp
-	$scope.getQueries = function() {
-		console.log('getQueries');
+    //var receivedQueries = [];
+    $scope.receivedQueries = [];
+
+    $http.get('http://localhost:5060').then(processReceivedQueries);
+
+	function processReceivedQueries(queries){
+		queries.data.forEach(function (query){
+			var newQuery = new Object();
+			newQuery.date = query.time;
+			newQuery.status = "Status";
+			newQuery.coreQuery = query.query;
+			newQuery.keywordString = extractKeywords(query.query);
+			newQuery.url = query.url;
+			$scope.receivedQueries.push(newQuery);
+
+		});
+	};
+
+	function extractKeywords(queryString){
+		var keywords = ["SELECT","PREFIX"];
+		var keywordString = "";
+
+		keywords.forEach(function (keyword){
+			var count = 0;
+			var index = queryString.indexOf(keyword,index + keyword.length);			
+			while (index != -1)
+			{
+				count++;
+				index = queryString.indexOf(keyword,index + keyword.length);								
+			}
+			if (count > 0) {
+				keywordString += keyword + "(" + count + "),";	
+			}
+			
+		});
+		return keywordString;	
+	};
+
+	
+	
+	/*queries = $http.get('http://localhost:5060').then(function (response) {
+		console.log("success");
+		$scope.queries = response
+	});
+	*/
+
+
+	
+	/*$scope.getQueries = function (){
+		console.log('getQueries function');
 		$http.get('http://localhost:5060')
 		.then(function (response) {
         	//first function handles success
         	console.log('success');
-        	$scope.queries = response.data;
+        //	queries = response.data;
         }, function(response) {
             console.log('failed');    	
         	$scope.httpMessage = 'Failed to get Queries. Code: ' + response.status;
         });
-	}
+	};
+	*/
+
+	//$scope.getQueries();
+	//call function at startup
+	
 
 	//show Query of log Entry
-	$scope.showQuery = function(query) {
+	/*$scope.showQuery = function(query) {
 		console.log('inside showQuery');
 		console.log(query.time);
 		$scope.coreQuery = query.query;
-	}
+	};
+	*/
 
+	//console.log(this.queries);
+	
 });
 
 app.controller('visualisationController', function($scope) {
