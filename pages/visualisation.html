@@ -11,13 +11,13 @@
             <div class="col-sm-2">
               <p>
                 <label>Id:</label>
-                <em>Nummer 1</em>
+                <em>{{ query.id }}</em>
               </p>             
             </div>
             <div class="col-sm-4">
               <p>
                 <label>Date:</label>
-                <span>Sunday, 07-Jan-18 10:59:36</span>
+                <span>{{ query.date }}</span>
               </p>             
             </div>
             <div class="col-sm-4">
@@ -32,7 +32,16 @@
             <div class="col-sm-12">
               <p>
                 <label>Client:</label>
-                <span>Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0</span>
+                <span>{{ query.client }}</span>
+              </p>             
+            </div>                                       
+          </div>
+
+          <div class="row" style="outline: 1px ;outline-style: none; ">
+            <div class="col-sm-12">
+              <p>
+                <label>User Agent:</label>
+                <span>{{ query.userAgent }}</span>
               </p>             
             </div>                                       
           </div>
@@ -48,8 +57,8 @@
                 <div class="col-sm-12" >
 
                   <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#prefixes" style="text-align: left; background-color: #c4c4c4;">PREFIX Region <span class="caret"></span></button>
-                  <div id="prefixes" class="collapse">
-                    <p id="coreQueryPrefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
+                  <div id="prefixes">
+                    <p id="coreQueryPrefixes" ng-bind="query.prefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
                       Hier Query Prefixes mit formated text
                     </p>
                   </div>
@@ -61,8 +70,7 @@
               <div class="row" >
 
                 <div class="col-sm-12" style="" >                  
-                  <p id="coreQuery" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
-                    Hier coreQuery mit formated text
+                  <p id="coreQuery" ng-bind="query.coreQuery" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
                   </p>            
                 </div>
               </div>
