@@ -1,4 +1,4 @@
-var app = angular.module('sparqlVisualiser', ['ngRoute']);
+var app = angular.module('sparqlVisualiser', ['ngRoute', 'ui.bootstrap']);
 
 //configure routes
 app.config(function($routeProvider) {
@@ -32,7 +32,18 @@ app.controller('queryLogController', function($scope, $http) {
     //var receivedQueries = [];
     $scope.receivedQueries = [];
 
-    $http.get('http://localhost:5060').then(processReceivedQueries);
+    //get Queries when page is loaded
+    getQueriesFromProxy();
+
+    function getQueriesFromProxy(){
+    	$scope.receivedQueries = [];
+    	$http.get('http://localhost:5060').then(processReceivedQueries);	
+    };
+    
+    $scope.refreshQueries = function(){
+		console.log('inside refreshQueries');
+		getQueriesFromProxy();
+    };
 
 	function processReceivedQueries(queries){
 		queries.data.forEach(function (query){
@@ -48,7 +59,9 @@ app.controller('queryLogController', function($scope, $http) {
 	};
 
 	function extractKeywords(queryString){
-		var keywords = ["SELECT","PREFIX"];
+		var keywords = ["SELECT","SELECT DISTINCT","SELECT FROM",
+		"WHERE","FILTER","ORDER BY","LIMIT","UNION","INSERT","INSERT DATA",
+		"GRAPH","SERVICE","OPTIONAL","BIND","MINUS","DELETE","CONSTRUCT",];
 		var keywordString = "";
 
 		keywords.forEach(function (keyword){
