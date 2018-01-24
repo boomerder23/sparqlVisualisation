@@ -26,26 +26,16 @@ app.config(function($routeProvider) {
 });
 
 
-app.controller('queryLogController', function($scope, $http) {
-	//get Queries from Proxy, when Click Refresh Button
-	//https://www.w3schools.com/angular/angular_http.asp
-    //var receivedQueries = [];
-    $scope.receivedQueries = [];
+app.factory('queryLogService',function ($http) {
+	var queryLogServiceObject = {};
+	queryLogServiceObject.receivedQueries = [];
 
-    //get Queries when page is loaded
-    getQueriesFromProxy();
-
-    function getQueriesFromProxy(){
-    	$scope.receivedQueries = [];
+	queryLogServiceObject.getQueriesFromProxy = function (){
+    	queryLogServiceObject.receivedQueries = [];
     	$http.get('http://localhost:5060').then(processReceivedQueries);	
     };
-    
-    $scope.refreshQueries = function(){
-		console.log('inside refreshQueries');
-		getQueriesFromProxy();
-    };
 
-	function processReceivedQueries(queries){
+    function processReceivedQueries(queries){
 		queries.data.forEach(function (query){
 			var newQuery = new Object();
 			newQuery.date = query.time;
@@ -53,7 +43,7 @@ app.controller('queryLogController', function($scope, $http) {
 			newQuery.coreQuery = query.query;
 			newQuery.keywordString = extractKeywords(query.query);
 			newQuery.url = query.url;
-			$scope.receivedQueries.push(newQuery);
+			queryLogServiceObject.receivedQueries.push(newQuery);
 
 		});
 	};
@@ -79,6 +69,24 @@ app.controller('queryLogController', function($scope, $http) {
 		});
 		return keywordString;	
 	};
+
+	return queryLogServiceObject;
+});
+
+
+app.controller('queryLogController', function($scope, $http, queryLogService) {
+	
+	//link data to view
+    $scope.receivedQueries = queryLogService.receivedQueries;
+
+    //get Queries when page is loaded, so that is not empty
+    queryLogService.getQueriesFromProxy();
+    
+    $scope.refreshQueries = function(){
+		console.log('inside refreshQueries');
+		queryLogService.getQueriesFromProxy();
+    };
+	
 
 	//show Query of log Entry
 	$scope.showQuery = function(query) {
