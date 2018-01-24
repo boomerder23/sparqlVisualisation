@@ -29,6 +29,7 @@ app.config(function($routeProvider) {
 app.factory('queryLogService',function ($http) {
 	var queryLogServiceObject = {};
 	queryLogServiceObject.receivedQueries = [];
+	queryLogServiceObject.selectedQuery = {};
 
 	queryLogServiceObject.getQueriesFromProxy = function (){
     	queryLogServiceObject.receivedQueries = [];
@@ -36,17 +37,68 @@ app.factory('queryLogService',function ($http) {
     };
 
     function processReceivedQueries(queries){
+    	var	 id = 1;
 		queries.data.forEach(function (query){
 			var newQuery = new Object();
+			newQuery.id = id;
 			newQuery.date = query.time;
-			newQuery.status = "Status";
-			newQuery.coreQuery = query.query;
-			newQuery.keywordString = extractKeywords(query.query);
+			newQuery.status = "Status";			
 			newQuery.url = query.url;
+			newQuery.client = query.client;
+			newQuery.userAgent = query.userAgent;
+			// extract information from inside the query
+			newQuery.queryString = query.query;
+			newQuery.prefixes = extractPrefixes(query.query);
+			newQuery.coreQuery = extractCoreQuery(query.query);
+			newQuery.keywordString = extractKeywords(query.query);
+
 			queryLogServiceObject.receivedQueries.push(newQuery);
 
+			id++;
 		});
 	};
+
+	function extractPrefixes(queryString) {
+		var index = queryString.indexOf("PREFIX",0);
+		var indexEndOfLastPrefix = 0;
+		var count = 0;
+		while (index != -1)
+		{
+			count++;
+			indexEndOfLastPrefix = queryString.indexOf(">",index);
+			index = queryString.indexOf("PREFIX",index + 1);						
+		}
+		if (count > 0) 
+		{
+			return queryString.substring(0,indexEndOfLastPrefix);	
+		}
+		else
+		{
+			return "no Prefixes found!";
+		}	
+
+	}
+
+	function extractCoreQuery(queryString) {
+		var index = queryString.indexOf("PREFIX",0);
+		var indexEndOfLastPrefix = 0;
+		var indexBeginCoreQuery = 0;
+		var count = 0;
+		while (index != -1)
+		{
+			count++;
+			indexEndOfLastPrefix = queryString.indexOf(">",index);
+			index = queryString.indexOf("PREFIX",index + 1);						
+		}
+		if (count > 0) 
+		{
+			//https://www.w3schools.com/jsref/jsref_obj_regexp.asp
+			//search for the first non whitespace charakter, after the prfeix region
+			indexBeginCoreQuery = indexEndOfLastPrefix + 1 + queryString.substring(indexEndOfLastPrefix + 1,queryString.length).search(/\S/);
+		}		
+
+		return queryString.substring(indexBeginCoreQuery, queryString.length);	
+	}
 
 	function extractKeywords(queryString){
 		var keywords = ["SELECT","SELECT DISTINCT","SELECT FROM",
@@ -74,7 +126,7 @@ app.factory('queryLogService',function ($http) {
 });
 
 
-app.controller('queryLogController', function($scope, $http, queryLogService) {
+app.controller('queryLogController', function($scope, $http, $location, queryLogService) {
 	
 	//link data to view
     $scope.receivedQueries = queryLogService.receivedQueries;
@@ -82,23 +134,40 @@ app.controller('queryLogController', function($scope, $http, queryLogService) {
     //get Queries when page is loaded, so that is not empty
     queryLogService.getQueriesFromProxy();
     
+    //link refresh function to view
     $scope.refreshQueries = function(){
 		console.log('inside refreshQueries');
 		queryLogService.getQueriesFromProxy();
     };
-	
 
-	//show Query of log Entry
+	//link show query function to view
 	$scope.showQuery = function(query) {
 		console.log('inside showQuery');
 		console.log(query.time);
 		$scope.coreQuery = query;
-	};	
+	};
+
+	$scope.openVisualisation = function(query){
+		console.log('inside openVisualisation');
+		queryLogService.selectedQuery = query;
+		$location.path('visualisation');
+	};
+
+	$scope.openResults = function(query){
+		console.log('inside openVisualisation');
+		$location.path('results');
+	};
+
+	$scope.openDebugging = function(query){
+		console.log('inside openVisualisation');
+		$location.path('debugging');
+	};
 	
 });
 
-app.controller('visualisationController', function($scope) {
-	$scope.message = 'Iam the Visualisation Page';
+app.controller('visualisationController', function($scope, queryLogService) {
+	console.log('inside visual controller');
+	$scope.query = queryLogService.selectedQuery;
 });
 
 app.controller('resultsController', function($scope) {
