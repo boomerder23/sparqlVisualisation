@@ -17,17 +17,17 @@
                 <th>Interaction</th>
               </tr>
             </thead>
-              <tr ng-repeat="x in receivedQueries" ng-click="showQuery(x.coreQuery)">
-                <td>{{ $index + 1 }}</td>
-                <td>{{ x.date }}</td>
-                <td>{{ x.status }}</td>
-                <td>{{ x.keywordString }}</td>
+              <tr ng-repeat="query in receivedQueries" ng-click="showQuery(query.queryString)">
+                <td>{{ query.id }}</td>
+                <td>{{ query.date }}</td>
+                <td>{{ query.status }}</td>
+                <td>{{ query.keywordString }}</td>
                 <td>
-                  <button  ng-click="openVisualisation(x.coreQuery)" type="button" class="btn btn-default">
+                  <button ng-click="openVisualisation(query)" type="button" class="btn btn-default">
                   <i class="fa fa-television" aria-hidden="true"></i> 
                   Visualise
                   </button>
-                  <button id="deb3" type="button" class="btn btn-default">
+                  <button ng-click="openDebugging(query)" id="deb3" type="button" class="btn btn-default">
                   <i class="fa fa-info-circle" aria-hidden="true"></i>
                   Debugging
                   </button>
