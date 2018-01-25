@@ -1,6 +1,0 @@
-# Prefixes
-PREFIX dc:  &lthttp://purl.org/dc/elements/1.1/&gt
-PREFIX rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#&gt
-PREFIX rdfs: &lthttp://www.w3.org/2000/01/rdf-schema#&gt
-PREFIX mso: &lthttp://eatld.et.tu-dresden.de/mso/&gt
-PREFIX sce: &lthttp://eatld.et.tu-dresden.de/sce/&gt
