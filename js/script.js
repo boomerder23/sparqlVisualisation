@@ -139,7 +139,7 @@ app.controller('queryLogController', function($scope, $http, $location, queryLog
 	
 	//link data to view
     $scope.receivedQueries = queryLogService.receivedQueries;
-
+    
     //get Queries when page is loaded, so that is not empty
     queryLogService.getQueriesFromProxy();
     
@@ -177,8 +177,9 @@ app.controller('visualisationController', function($scope, queryLogService) {
 	$scope.query = queryLogService.selectedQuery;
 });
 
-app.controller('resultsController', function($scope) {
+app.controller('resultsController', function($scope, queryLogService) {
 	$scope.message = 'Iam the Results Page';
+	$scope.query = queryLogService.selectedQuery;
 });
 
 app.controller('debuggingController', function($scope) {
