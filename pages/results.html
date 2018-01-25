@@ -84,7 +84,7 @@
                        
                 </div>
                 <div class="col-sm-6" >                  
-                  <button class="btn button-grey">edit & execute again</button>
+                  <button class="btn button-grey" ng-click="getResults()">Get Results</button>
                   <button class="btn button-grey" ngclipboard data-clipboard-text="{{query.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>     
                 </div>
               </div>
@@ -107,7 +107,15 @@
 
         <div class="panel-body">
           <div class="row">
-            <img src="testQuery1Viz.png" style=" max-width: 100%; height: auto; width: auto;" alt="TestQuery">
+            
+            <table class="table table-bordered">
+	            <thead>
+	              <tr>
+	                <th ng-repeat="heading in query.resultdata.head.vars">{{heading}}</th>	                
+	              </tr>
+	            </thead>				           
+            </table> 
+
           </div>
         </div>
       </div>

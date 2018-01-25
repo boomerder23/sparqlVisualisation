@@ -31,9 +31,25 @@ app.factory('queryLogService',function ($http) {
 	queryLogServiceObject.receivedQueries = [];
 	queryLogServiceObject.selectedQuery = {};
 
+
+
 	queryLogServiceObject.getQueriesFromProxy = function (){
     	queryLogServiceObject.receivedQueries = [];
     	$http.get('http://localhost:5060').then(processReceivedQueries);	
+    };
+
+    queryLogServiceObject.getResultsFromQuery = function (query){   
+    	var targetUrl = "http://" + query.host + query.url;
+    	var index = targetUrl.indexOf("format=",0);
+    	var targetUrlWithJSONFormat = targetUrl.substring(0,index) + "format=application%2Fsparql-results%2Bjson&timeout=0&debug=on";
+    	$http.get(targetUrlWithJSONFormat).then(processResultsForQuery);	
+    };
+
+    function processResultsForQuery (results){
+    	console.log('process results');
+    	queryLogServiceObject.selectedQuery.resultdata = results.data;
+
+
     };
 
     function processReceivedQueries(queries){
@@ -51,6 +67,7 @@ app.factory('queryLogService',function ($http) {
 				newQuery.success = !queryLogServiceObject.receivedQueries[id-2].success;	
 			}
 
+			newQuery.host = query.host;
 			newQuery.url = query.url;
 			newQuery.client = query.client;
 			newQuery.userAgent = query.userAgent;
@@ -107,6 +124,7 @@ app.factory('queryLogService',function ($http) {
 		}		
 
 		return queryString.substring(indexBeginCoreQuery, queryString.length);	
+	
 	}
 
 	function extractKeywords(queryString){
@@ -189,9 +207,17 @@ app.controller('visualisationController', function($scope, queryLogService) {
 	$scope.query = queryLogService.selectedQuery;
 });
 
-app.controller('resultsController', function($scope, queryLogService) {
+app.controller('resultsController', function($scope, $http, queryLogService) {
 	$scope.message = 'Iam the Results Page';
 	$scope.query = queryLogService.selectedQuery;
+
+
+	$scope.getResults = function () {
+		console.log('inside getResults');
+		queryLogService.getResultsFromQuery(queryLogService.selectedQuery);	
+		$scope.query = queryLogService.selectedQuery;	
+	}
+
 });
 
 app.controller('debuggingController', function($scope) {
