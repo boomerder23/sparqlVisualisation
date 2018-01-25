@@ -1,4 +1,4 @@
-var app = angular.module('sparqlVisualiser', ['ngRoute', 'ui.bootstrap']);
+var app = angular.module('sparqlVisualiser', ['ngRoute', 'ui.bootstrap', 'ngclipboard']);
 
 //configure routes
 app.config(function($routeProvider) {
