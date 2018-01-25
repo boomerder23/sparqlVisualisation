@@ -20,7 +20,9 @@
               <tr ng-repeat="query in receivedQueries" ng-click="setSelection(query)" ng-class="{'active': query.id === selectedQueryId}">
                 <td>{{ query.id }}</td>
                 <td>{{ query.date }}</td>
-                <td>{{ query.status }}</td>
+                <td> 
+                  <span ng-class="{'label label-success': query.status === true, 'label label-danger': query.status === false}">{{ query.status }}</span>                  
+                </td>
                 <td>{{ query.keywordString }}</td>
                 <td>
                   <button ng-click="openVisualisation(query)" type="button" class="btn btn-default">

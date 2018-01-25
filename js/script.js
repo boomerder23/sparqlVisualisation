@@ -42,7 +42,15 @@ app.factory('queryLogService',function ($http) {
 			var newQuery = new Object();
 			newQuery.id = id;
 			newQuery.date = query.time;
-			newQuery.status = "Status";			
+			if (id == 1) 
+			{
+				newQuery.status = true;
+			}
+			else
+			{
+				newQuery.status = !queryLogServiceObject.receivedQueries[id-2].status;	
+			}
+
 			newQuery.url = query.url;
 			newQuery.client = query.client;
 			newQuery.userAgent = query.userAgent;
