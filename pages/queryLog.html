@@ -7,7 +7,7 @@
           <h3>Query-Log Tabelle <button class="btn btn-primary" id="refreshQueryLog" ng-click="refreshQueries()">Refresh</button></h3>
         </div>
         <div class="panel-body">
-          <table class="table table-bordered table-hover">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>#</th>
@@ -17,7 +17,7 @@
                 <th>Interaction</th>
               </tr>
             </thead>
-              <tr ng-repeat="query in receivedQueries" ng-click="showQuery(query.queryString)">
+              <tr ng-repeat="query in receivedQueries" ng-click="setSelection(query)" ng-class="{'active': query.id === selectedQueryId}">
                 <td>{{ query.id }}</td>
                 <td>{{ query.date }}</td>
                 <td>{{ query.status }}</td>
@@ -50,7 +50,7 @@
           <h3>corresponding Core Query <button class="btn button-grey" id="togglePrevieGraph">Toggle Preview</button></h3>
         </div>
         <div class="panel-body">
-          <p id="coreQuery" ng-bind="coreQuery" style="white-space: pre; overflow-x: auto;"></p>
+          <p ng-bind="fullQuery" style="white-space: pre; overflow-x: auto;"></p>
         </div>
       </div>
     </div>

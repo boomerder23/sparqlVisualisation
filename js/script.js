@@ -140,12 +140,10 @@ app.controller('queryLogController', function($scope, $http, $location, queryLog
 		console.log('inside refreshQueries');
 		queryLogService.getQueriesFromProxy();
     };
-
-	//link show query function to view
-	$scope.showQuery = function(query) {
-		console.log('inside showQuery');
-		console.log(query.time);
-		$scope.coreQuery = query;
+	
+	$scope.setSelection = function(query) {
+		$scope.selectedQueryId = query.id;
+		$scope.fullQuery = query.queryString;
 	};
 
 	$scope.openVisualisation = function(query){
