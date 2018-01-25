@@ -56,6 +56,7 @@ app.factory('queryLogService',function ($http) {
 
 			id++;
 		});
+		queryLogServiceObject.selectedQuery = queryLogServiceObject.receivedQueries[0];
 	};
 
 	function extractPrefixes(queryString) {
