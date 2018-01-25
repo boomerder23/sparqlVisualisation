@@ -44,11 +44,11 @@ app.factory('queryLogService',function ($http) {
 			newQuery.date = query.time;
 			if (id == 1) 
 			{
-				newQuery.status = true;
+				newQuery.success = true;
 			}
 			else
 			{
-				newQuery.status = !queryLogServiceObject.receivedQueries[id-2].status;	
+				newQuery.success = !queryLogServiceObject.receivedQueries[id-2].success;	
 			}
 
 			newQuery.url = query.url;
@@ -158,6 +158,18 @@ app.controller('queryLogController', function($scope, $http, $location, queryLog
 		console.log('inside openVisualisation');
 		queryLogService.selectedQuery = query;
 		$location.path('visualisation');
+	};
+	
+	$scope.openExecutionDetails = function(query){
+		if (query.success) 
+		{
+			$location.path('results');	
+		}
+		else 
+		{
+			$location.path('debugging');	
+		}
+		
 	};
 
 	$scope.openResults = function(query){

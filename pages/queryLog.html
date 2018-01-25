@@ -21,7 +21,7 @@
                 <td>{{ query.id }}</td>
                 <td>{{ query.date }}</td>
                 <td> 
-                  <span ng-class="{'label label-success': query.status === true, 'label label-danger': query.status === false}">{{ query.status }}</span>                  
+                  <span ng-class="{'label label-success': query.success === true, 'label label-danger': query.success === false}">{{ query.success == true ? 'Success' : 'Failure' }}</span>                  
                 </td>
                 <td>{{ query.keywordString }}</td>
                 <td>
@@ -29,9 +29,9 @@
                   <i class="fa fa-television" aria-hidden="true"></i> 
                   Visualise
                   </button>
-                  <button ng-click="openDebugging(query)" id="deb3" type="button" class="btn btn-default">
-                  <i class="fa fa-info-circle" aria-hidden="true"></i>
-                  Debugging
+                  <button ng-click="openExecutionDetails(query)" type="button" class="btn btn-default">
+                  <i ng-class="{'fa fa-info-circle': query.success === false, 'fa fa-database': query.success === true}"></i>
+                  {{ query.success == true ? 'Results' : 'Debugging' }}
                   </button>
               </td>
                 
