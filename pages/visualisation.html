@@ -56,12 +56,15 @@
 
                 <div class="col-sm-12" >
 
-                  <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#prefixes" style="text-align: left; background-color: #c4c4c4;">PREFIX Region <span class="caret"></span></button>
-                  <div id="prefixes">
-                    <p id="coreQueryPrefixes" ng-bind="query.prefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
-                      Hier Query Prefixes mit formated text
-                    </p>
-                  </div>
+                  <button type="button" class="btn btn-block" ng-click="isCollapsed = !isCollapsed" style="text-align: left">
+                    PREFIX - Region
+                    <i  ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-up' : isCollapsed}"></i>
+                  </button>
+
+                  <div uib-collapse="!isCollapsed">
+                    <p ng-bind="query.prefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
+                    </p> 
+                  </div>                 
 
                 </div>
                 
