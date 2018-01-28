@@ -26,10 +26,12 @@ app.config(function($routeProvider) {
 });
 
 
-app.factory('queryLogService',function ($http) {
+app.factory('queryLogService',function ($http, $rootScope) {
 	var queryLogServiceObject = {};
 	queryLogServiceObject.receivedQueries = [];
-	queryLogServiceObject.selectedQuery = {};
+	queryLogServiceObject.selectedQuery = queryLogServiceObject.receivedQueries[0];
+	queryLogServiceObject.resultsHeader = [];
+	queryLogServiceObject.resultsData = [];
 
 
 
@@ -39,7 +41,7 @@ app.factory('queryLogService',function ($http) {
     };
 
     queryLogServiceObject.getResultsFromQuery = function (query){   
-    	var targetUrl = "http://" + query.host + query.url;
+    	var targetUrl = query.destinationUrl + query.url;
     	var index = targetUrl.indexOf("format=",0);
     	var targetUrlWithJSONFormat = targetUrl.substring(0,index) + "format=application%2Fsparql-results%2Bjson&timeout=0&debug=on";
     	$http.get(targetUrlWithJSONFormat).then(processResultsForQuery);	
@@ -47,9 +49,37 @@ app.factory('queryLogService',function ($http) {
 
     function processResultsForQuery (results){
     	console.log('process results');
-    	queryLogServiceObject.selectedQuery.resultdata = results.data;
+    	queryLogServiceObject.resultsHeader = [];
+    	queryLogServiceObject.resultsData = results.data.results.bindings;
 
+    	results.data.head.vars.forEach(function (element){
+    		console.log(element);
+    		queryLogServiceObject.resultsHeader.push(element);
+			
+			//var value = element[element].value;
+			//var tempArray = [];
 
+    		//for (var i = 0; i < results.data.results.bindings.length; i++) {
+    		//	tempArray.push(results.data.results.bindings[i][element].value);
+    		//}
+
+    		//queryLogServiceObject.resultsData.push(tempArray);
+    		//results.data.results.bindings.forEach(function (element){
+    		//var firstKey = Object.keys(element)[0];
+    		//var value = element[firstKey].value;
+    		//console.log(value);
+    		//resultsData.push(value);
+    		//});
+    	});
+    	//$rootScope.$broadcast("newPersonData");
+
+    	//results.data.results.bindings.forEach(function (element){
+    	//	var firstKey = Object.keys(element)[0];
+    	//	var value = element[firstKey].value;
+    	//	console.log(value);
+
+    	//	queryLogServiceObject.resultsData.push(value);
+    	//});
     };
 
     function processReceivedQueries(queries){
@@ -69,6 +99,7 @@ app.factory('queryLogService',function ($http) {
 
 			newQuery.host = query.host;
 			newQuery.url = query.url;
+			newQuery.destinationUrl = query.destinationUrl;
 			newQuery.client = query.client;
 			newQuery.userAgent = query.userAgent;
 			// extract information from inside the query
@@ -164,7 +195,9 @@ app.controller('queryLogController', function($scope, $http, $location, queryLog
     //link refresh function to view
     $scope.refreshQueries = function(){
 		console.log('inside refreshQueries');
+		$scope.receivedQueries = [];
 		queryLogService.getQueriesFromProxy();
+		$scope.receivedQueries = queryLogService.receivedQueries;
     };
 	
 	$scope.setSelection = function(query) {
@@ -209,15 +242,25 @@ app.controller('visualisationController', function($scope, queryLogService) {
 
 app.controller('resultsController', function($scope, $http, queryLogService) {
 	$scope.message = 'Iam the Results Page';
-	$scope.query = queryLogService.selectedQuery;
-
+	
+	$scope.queryLogService = queryLogService;
 
 	$scope.getResults = function () {
 		console.log('inside getResults');
-		queryLogService.getResultsFromQuery(queryLogService.selectedQuery);	
-		$scope.query = queryLogService.selectedQuery;	
+		$scope.queryLogService.getResultsFromQuery($scope.queryLogService.selectedQuery);	
+		//$scope.resultsHeader = queryLogService.resultsHeader;
+		//$scope.results = queryLogService.resultsData;
+		console.log('inside getResults');
 	}
 
+
+	$scope.getResults();
+
+	//$scope.results = $scope.getResults();
+
+	//$scope.query = queryLogService.selectedQuery;
+	//$scope.resultsHeader = queryLogService.resultsHeader;
+	//$scope.results = queryLogService.resultsData;
 });
 
 app.controller('debuggingController', function($scope) {

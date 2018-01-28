@@ -11,13 +11,13 @@
             <div class="col-sm-2">
               <p>
                 <label>Id:</label>
-                <em>{{ query.id }}</em>
+                <em>{{ queryLogService.selectedQuery.id }}</em>
               </p>             
             </div>
             <div class="col-sm-4">
               <p>
                 <label>Date:</label>
-                <span>{{ query.date }}</span>
+                <span>{{ queryLogService.selectedQuery.date }}</span>
               </p>             
             </div>
             <div class="col-sm-4">
@@ -32,7 +32,7 @@
             <div class="col-sm-12">
               <p>
                 <label>Client:</label>
-                <span>{{ query.client }}</span>
+                <span>{{ queryLogService.selectedQuery.client }}</span>
               </p>             
             </div>                                       
           </div>
@@ -41,7 +41,7 @@
             <div class="col-sm-12">
               <p>
                 <label>User Agent:</label>
-                <span>{{ query.userAgent }}</span>
+                <span>{{ queryLogService.selectedQuery.userAgent }}</span>
               </p>             
             </div>                                       
           </div>
@@ -62,7 +62,7 @@
                   </button>
 
                   <div uib-collapse="!isCollapsed">
-                    <p ng-bind="query.prefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
+                    <p ng-bind="queryLogService.selectedQuery.prefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
                     </p> 
                   </div>                 
 
@@ -73,7 +73,7 @@
               <div class="row" >
 
                 <div class="col-sm-12" style="" >                  
-                  <p ng-bind="query.coreQuery" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
+                  <p ng-bind="queryLogService.selectedQuery.coreQuery" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
                   </p>            
                 </div>
               </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-sm-6" >                  
                   <button class="btn button-grey" ng-click="getResults()">Get Results</button>
-                  <button class="btn button-grey" ngclipboard data-clipboard-text="{{query.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>     
+                  <button class="btn button-grey" ngclipboard data-clipboard-text="{{queryLogService.selectedQuery.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>     
                 </div>
               </div>
 
@@ -111,9 +111,13 @@
             <table class="table table-bordered">
 	            <thead>
 	              <tr>
-	                <th ng-repeat="heading in query.resultdata.head.vars">{{heading}}</th>	                
-	              </tr>
-	            </thead>				           
+	                <th ng-repeat="heading in queryLogService.resultsHeader">{{heading}}</th>
+	              </tr>	              
+	            </thead>	            
+        		<tr ng-repeat="data in queryLogService.resultsData">
+                	<td ng-repeat="object in data">{{ object.value }}</td>               
+                
+              	</tr>				           
             </table> 
 
           </div>
