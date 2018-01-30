@@ -17,11 +17,11 @@
                 <th>Interaction</th>
               </tr>
             </thead>
-              <tr ng-repeat="query in receivedQueries" ng-click="setSelection(query)" ng-class="{'active': query.id === selectedQueryId}">
+              <tr ng-repeat="query in queryLogService.receivedQueries" ng-click="setSelection(query)" ng-class="{'active': query.id === selectedQueryId}">
                 <td>{{ query.id }}</td>
-                <td>{{ query.date | date : 'dd MMM yyyy , HH:mm:sss' }}</td>
-                <td> 
-                  <span ng-class="{'label label-success': query.success === true, 'label label-danger': query.success === false}">{{ query.success == true ? 'Success' : 'Failure' }}</span>                  
+                <td style="white-space:nowrap;">{{ query.date | date : 'dd MMM yyyy , HH:mm:sss' }}</td>
+                <td style="white-space:nowrap;"> 
+                  <span ng-class="{'label label-success': query.success === true, 'label label-danger': query.success === false}">{{ query.success == true ? 'Success' : 'Failure' }}</span> {{query.statusText}}                  
                 </td>
                 <td>{{ query.keywordString }}</td>
                 <td>
@@ -52,7 +52,7 @@
           <h3>corresponding Core Query <button class="btn button-grey" id="togglePrevieGraph">Toggle Preview</button></h3>
         </div>
         <div class="panel-body">
-          <p ng-bind="fullQuery" style="white-space: pre; overflow-x: auto;"></p>
+          <p ng-bind="queryLogService.selectedQuery.queryString" style="white-space: pre; overflow-x: auto;"></p>
         </div>
       </div>
     </div>
