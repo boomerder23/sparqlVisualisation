@@ -33,8 +33,6 @@ app.factory('queryLogService',function ($http, $rootScope) {
 	queryLogServiceObject.resultsHeader = [];
 	queryLogServiceObject.resultsData = [];
 
-
-
 	queryLogServiceObject.getQueriesFromProxy = function (){
     	queryLogServiceObject.receivedQueries = [];
     	$http.get('http://localhost:5060').then(processReceivedQueries);	
@@ -55,31 +53,7 @@ app.factory('queryLogService',function ($http, $rootScope) {
     	results.data.head.vars.forEach(function (element){
     		console.log(element);
     		queryLogServiceObject.resultsHeader.push(element);
-			
-			//var value = element[element].value;
-			//var tempArray = [];
-
-    		//for (var i = 0; i < results.data.results.bindings.length; i++) {
-    		//	tempArray.push(results.data.results.bindings[i][element].value);
-    		//}
-
-    		//queryLogServiceObject.resultsData.push(tempArray);
-    		//results.data.results.bindings.forEach(function (element){
-    		//var firstKey = Object.keys(element)[0];
-    		//var value = element[firstKey].value;
-    		//console.log(value);
-    		//resultsData.push(value);
-    		//});
     	});
-    	//$rootScope.$broadcast("newPersonData");
-
-    	//results.data.results.bindings.forEach(function (element){
-    	//	var firstKey = Object.keys(element)[0];
-    	//	var value = element[firstKey].value;
-    	//	console.log(value);
-
-    	//	queryLogServiceObject.resultsData.push(value);
-    	//});
     };
 
     function processReceivedQueries(queries){
@@ -241,26 +215,17 @@ app.controller('visualisationController', function($scope, queryLogService) {
 });
 
 app.controller('resultsController', function($scope, $http, queryLogService) {
-	$scope.message = 'Iam the Results Page';
-	
+
+	//announce the Service to the scope
 	$scope.queryLogService = queryLogService;
 
 	$scope.getResults = function () {
-		console.log('inside getResults');
-		$scope.queryLogService.getResultsFromQuery($scope.queryLogService.selectedQuery);	
-		//$scope.resultsHeader = queryLogService.resultsHeader;
-		//$scope.results = queryLogService.resultsData;
-		console.log('inside getResults');
+		$scope.queryLogService.getResultsFromQuery($scope.queryLogService.selectedQuery);
 	}
 
-
+	//get results after startup
 	$scope.getResults();
 
-	//$scope.results = $scope.getResults();
-
-	//$scope.query = queryLogService.selectedQuery;
-	//$scope.resultsHeader = queryLogService.resultsHeader;
-	//$scope.results = queryLogService.resultsData;
 });
 
 app.controller('debuggingController', function($scope) {
