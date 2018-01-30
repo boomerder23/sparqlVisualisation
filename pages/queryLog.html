@@ -19,7 +19,7 @@
             </thead>
               <tr ng-repeat="query in receivedQueries" ng-click="setSelection(query)" ng-class="{'active': query.id === selectedQueryId}">
                 <td>{{ query.id }}</td>
-                <td>{{ query.date }}</td>
+                <td>{{ query.date | date : 'dd MMM yyyy , HH:mm:sss' }}</td>
                 <td> 
                   <span ng-class="{'label label-success': query.success === true, 'label label-danger': query.success === false}">{{ query.success == true ? 'Success' : 'Failure' }}</span>                  
                 </td>
