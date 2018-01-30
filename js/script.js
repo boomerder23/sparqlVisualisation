@@ -31,7 +31,7 @@ app.factory('queryLogService',function ($http, $rootScope) {
 	queryLogServiceObject.receivedQueries = [];
 	queryLogServiceObject.selectedQuery = {};
 	queryLogServiceObject.resultsHeader = [];
-	queryLogServiceObject.resultsData = [];
+	queryLogServiceObject.resultsData = [];	
 
 	queryLogServiceObject.getQueriesFromProxy = function (){
     	queryLogServiceObject.receivedQueries = [];
@@ -174,6 +174,8 @@ app.factory('queryLogService',function ($http, $rootScope) {
     	});
     };
 
+    //get queries from proxy
+    queryLogServiceObject.getQueriesFromProxy();
 
 	return queryLogServiceObject;
 });
@@ -182,20 +184,19 @@ app.factory('queryLogService',function ($http, $rootScope) {
 app.controller('queryLogController', function($scope,$filter, $http, $location, queryLogService) {
 	
 	//link data to view
-	$scope.queryLogService = queryLogService;
-	$scope.selectedQueryId = 1;	//so the first item is selected
+	$scope.queryLogService = queryLogService;	
     
     //get Queries when page is loaded, so that is not empty
-    $scope.queryLogService.getQueriesFromProxy();
+    //$scope.queryLogService.getQueriesFromProxy();
     
     //link refresh function to view
     $scope.refreshQueries = function(){
 		$scope.queryLogService.getQueriesFromProxy();
     };
 	
-	$scope.setSelection = function(query) {
+	$scope.setSelection = function(rowIndex,query) {
 		$scope.queryLogService.selectedQuery = $filter('filter')(queryLogService.receivedQueries, {'id':query.id})[0];
-		$scope.selectedQueryId = query.id;
+		$scope.selectedRow = rowIndex;
 	};
 
 	$scope.openVisualisation = function(query){
