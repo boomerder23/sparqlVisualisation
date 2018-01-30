@@ -106,7 +106,7 @@
         </div>
 
         <div class="panel-body">
-          <div class="row">
+
             
             <table class="table table-bordered">
 	            <thead>
@@ -114,13 +114,13 @@
 	                <th ng-repeat="heading in queryLogService.resultsHeader">{{heading}}</th>
 	              </tr>	              
 	            </thead>	            
-        		<tr ng-repeat="data in queryLogService.resultsData">
+        		<tr ng-repeat="data in queryLogService.resultsData|limitTo:10">
                 	<td ng-repeat="object in data">{{ object.value }}</td>               
                 
               	</tr>				           
             </table> 
 
-          </div>
+          
         </div>
       </div>
     </div>
