@@ -23,7 +23,7 @@
             <div class="col-sm-4">
               <p>
                 <label>Status:</label>
-                <span class="label label-success">Success</span>
+                <span ng-class="{'label label-success': queryLogService.selectedQuery.success === true, 'label label-danger': queryLogService.selectedQuery.success === false}">{{ queryLogService.selectedQuery.success == true ? 'Success' : 'Failure' }}</span> {{queryLogService.selectedQuery.statusText}}
               </p>             
             </div>                           
           </div>
@@ -108,7 +108,7 @@
         <div class="panel-body">
 
             
-            <table class="table table-bordered">
+            <table ng-if="queryLogService.selectedQuery.success === true" class="table table-bordered">
 	            <thead>
 	              <tr>
 	                <th ng-repeat="heading in queryLogService.resultsHeader">{{heading}}</th>
@@ -118,7 +118,9 @@
                 	<td ng-repeat="object in data">{{ object.value }}</td>               
                 
               	</tr>				           
-            </table> 
+            </table>
+
+            <p ng-if="queryLogService.selectedQuery.success === false" > No Results."</p> 
 
           
         </div>
