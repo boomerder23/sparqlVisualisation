@@ -29,48 +29,21 @@ app.config(function($routeProvider) {
 app.factory('queryLogService',function ($http, $rootScope) {
 	var queryLogServiceObject = {};
 	queryLogServiceObject.receivedQueries = [];
-	queryLogServiceObject.selectedQuery = queryLogServiceObject.receivedQueries[0];
+	queryLogServiceObject.selectedQuery = {};
 	queryLogServiceObject.resultsHeader = [];
 	queryLogServiceObject.resultsData = [];
 
 	queryLogServiceObject.getQueriesFromProxy = function (){
     	queryLogServiceObject.receivedQueries = [];
     	$http.get('http://localhost:5060').then(processReceivedQueries);	
-    };
-
-    queryLogServiceObject.getResultsFromQuery = function (query){   
-    	var targetUrl = query.destinationUrl + query.url;
-    	var index = targetUrl.indexOf("format=",0);
-    	var targetUrlWithJSONFormat = targetUrl.substring(0,index) + "format=application%2Fsparql-results%2Bjson&timeout=0&debug=on";
-    	$http.get(targetUrlWithJSONFormat).then(processResultsForQuery);	
-    };
-
-    function processResultsForQuery (results){
-    	console.log('process results');
-    	queryLogServiceObject.resultsHeader = [];
-    	queryLogServiceObject.resultsData = results.data.results.bindings;
-
-    	results.data.head.vars.forEach(function (element){
-    		console.log(element);
-    		queryLogServiceObject.resultsHeader.push(element);
-    	});
-    };
+    };    
 
     function processReceivedQueries(queries){
     	var	 id = 1;
 		queries.data.forEach(function (query){
 			var newQuery = new Object();
 			newQuery.id = id;
-			newQuery.date = query.time;
-			if (id == 1) 
-			{
-				newQuery.success = true;
-			}
-			else
-			{
-				newQuery.success = !queryLogServiceObject.receivedQueries[id-2].success;	
-			}
-
+			newQuery.date = new Date(query.time);
 			newQuery.host = query.host;
 			newQuery.url = query.url;
 			newQuery.destinationUrl = query.destinationUrl;
@@ -82,11 +55,40 @@ app.factory('queryLogService',function ($http, $rootScope) {
 			newQuery.coreQuery = extractCoreQuery(query.query);
 			newQuery.keywordString = extractKeywords(query.query);
 
-			queryLogServiceObject.receivedQueries.push(newQuery);
+			queryLogServiceObject.receivedQueries.unshift(newQuery);
 
 			id++;
 		});
+		// check all queries
+		checkStatusForQueries();
+
 		queryLogServiceObject.selectedQuery = queryLogServiceObject.receivedQueries[0];
+	};
+
+	function checkStatusForQueries() {
+
+		queryLogServiceObject.receivedQueries.forEach( function (query) {
+			//with .bind, you can access the binded object in the callback function, or access parameters in the callback function
+			$http.get(query.destinationUrl + query.url).then(assignStatus.bind( {queryObject: query} ), assignStatus.bind( {queryObject: query} ) );	
+		})
+		
+
+		function assignStatus(response){
+			// status codes: https://de.wikipedia.org/wiki/HTTP-Statuscode
+			if (response.status >= 400 && response.status < 500) {
+				//client failure
+				this.queryObject.success = false;	
+				this.queryObject.statusText = response.statusText;
+				this.queryObject.debugText = response.data;	
+			}
+			else if (response.status >= 200 && response.status < 300) 
+			{
+				//all fine
+				this.queryObject.success = true;	
+				this.queryObject.statusText = response.statusText;
+			}
+			
+		};
 	};
 
 	function extractPrefixes(queryString) {
@@ -154,39 +156,56 @@ app.factory('queryLogService',function ($http, $rootScope) {
 		return keywordString;	
 	};
 
+
+	queryLogServiceObject.getResultsFromQuery = function (query){   
+    	var targetUrl = query.destinationUrl + query.url;
+    	var index = targetUrl.indexOf("format=",0);
+    	var targetUrlWithJSONFormat = targetUrl.substring(0,index) + "format=application%2Fsparql-results%2Bjson&timeout=0&debug=on";
+    	$http.get(targetUrlWithJSONFormat).then(processResultsForQuery);	
+    };
+
+    function processResultsForQuery (results){
+    	console.log('process results');
+    	queryLogServiceObject.resultsHeader = [];
+    	queryLogServiceObject.resultsData = results.data.results.bindings;
+
+    	results.data.head.vars.forEach(function (element){
+    		queryLogServiceObject.resultsHeader.unshift(element);
+    	});
+    };
+
+
 	return queryLogServiceObject;
 });
 
 
-app.controller('queryLogController', function($scope, $http, $location, queryLogService) {
+app.controller('queryLogController', function($scope,$filter, $http, $location, queryLogService) {
 	
 	//link data to view
-    $scope.receivedQueries = queryLogService.receivedQueries;
+	$scope.queryLogService = queryLogService;
+	$scope.selectedQueryId = 1;	//so the first item is selected
     
     //get Queries when page is loaded, so that is not empty
-    queryLogService.getQueriesFromProxy();
+    $scope.queryLogService.getQueriesFromProxy();
     
     //link refresh function to view
     $scope.refreshQueries = function(){
-		console.log('inside refreshQueries');
-		$scope.receivedQueries = [];
-		queryLogService.getQueriesFromProxy();
-		$scope.receivedQueries = queryLogService.receivedQueries;
+		$scope.queryLogService.getQueriesFromProxy();
     };
 	
 	$scope.setSelection = function(query) {
+		$scope.queryLogService.selectedQuery = $filter('filter')(queryLogService.receivedQueries, {'id':query.id})[0];
 		$scope.selectedQueryId = query.id;
-		$scope.fullQuery = query.queryString;
 	};
 
 	$scope.openVisualisation = function(query){
-		console.log('inside openVisualisation');
-		queryLogService.selectedQuery = query;
+		$scope.queryLogService.selectedQuery = $filter('filter')(queryLogService.receivedQueries, {'id':query.id})[0];
 		$location.path('visualisation');
 	};
 	
 	$scope.openExecutionDetails = function(query){
-		if (query.success) 
+		$scope.queryLogService.selectedQuery = $filter('filter')(queryLogService.receivedQueries, {'id':query.id})[0];
+		if ($scope.queryLogService.selectedQuery.success) 
 		{
 			$location.path('results');	
 		}
@@ -197,13 +216,11 @@ app.controller('queryLogController', function($scope, $http, $location, queryLog
 		
 	};
 
-	$scope.openResults = function(query){
-		console.log('inside openVisualisation');
+	$scope.openResults = function(){
 		$location.path('results');
 	};
 
-	$scope.openDebugging = function(query){
-		console.log('inside openVisualisation');
+	$scope.openDebugging = function(){
 		$location.path('debugging');
 	};
 	
