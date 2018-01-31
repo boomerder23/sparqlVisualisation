@@ -1325,29 +1325,11 @@ app.controller("visualisationController", function ($scope, highlightingService,
     $scope.queries = queryLogService.receivedQueries;
     $scope.selectedQuery = queryLogService.selectedQuery.queryString;
     $scope.truncateLength = 250;
-    
-    $scope.selectQuery = function (query) {
-        console.log("Select Query", query);
-        if (query) {
-            if ($scope.selectedQuery) {
-                $scope.selectedQuery.isActive = false;
-            }
-            query.isActive = true;
-            $scope.selectedQuery = query;
-            parseQueryService.parse(query.query);
-            console.log($scope.queries);
-        }
-    };
 
     $scope.update = function () {
         parseQueryService.parse(queryLogService.selectedQuery.queryString);
     };
 
-    $scope.$watch("queries[0]", function (newVal, oldVal, scope) {
-        if (newVal && $scope.selectedQuery == null) {
-            $scope.selectQuery(newVal);
-        }
-    });
     $scope.$watch("parseQueryService.getObject()", function (newQuery) {
         if (newQuery === null)
             return;
@@ -1418,7 +1400,10 @@ app.controller("visualisationController", function ($scope, highlightingService,
     $scope.highlightService = highlightingService;
     $scope.dragNodeService = dragNodeService;
     $scope.parseQueryService = parseQueryService;
+    $scope.queryLogService = queryLogService;
     $scope.$location = $location;
+
+    $scope.update();
 });
 
 /// <reference path="../../node_modules/@types/jquery/index.d.ts" />
