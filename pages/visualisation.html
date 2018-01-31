@@ -99,7 +99,7 @@
         </div>
 
         <div class="panel-body" id="queryGraph">
-                <div id="graph" class="col-sm-10">
+                <div id="graph" class="col-sm-10" ng-if="queryLogService.selectedQuery.success === true">
                 <svg data-ng-mouseleave="dragNodeService.dragNode(null)"
                      data-ng-attr-view_box="0 0 {{graphSize.width}} {{graphSize.height}}"
                      xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +171,7 @@
                 </svg>
                 </div>
                 
-                <div class="col-sm-2">
+                <div class="col-sm-2" ng-if="queryLogService.selectedQuery.success === true">
                     <ul class="nav" id="side-menu">
                         <li>
                             <a>Graph ({{subGraphs.length}})<span class="fa arrow" data-ng-show="subGraphs.length > 0"></span></a>

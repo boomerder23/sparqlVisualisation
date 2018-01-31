@@ -1327,7 +1327,9 @@ app.controller("visualisationController", function ($scope, highlightingService,
     $scope.truncateLength = 250;
 
     $scope.update = function () {
-        parseQueryService.parse(queryLogService.selectedQuery.queryString);
+    	if (queryLogService.selectedQuery.success) {
+    		parseQueryService.parse(queryLogService.selectedQuery.queryString);	
+    	}    	      
     };
 
     $scope.$watch("parseQueryService.getObject()", function (newQuery) {
