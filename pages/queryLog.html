@@ -7,7 +7,7 @@
           <h3>Query-Log Tabelle <button class="btn btn-xs btn-primary" ng-click="refreshQueries()">Refresh</button></h3>
         </div>
         <div class="panel-body">
-          <table class="table table-bordered">
+          <table class="table table-bordered" ng-init="initRowSelection()">
             <thead>
               <tr>
                 <th>#</th>
@@ -51,10 +51,13 @@
         <div class="panel-heading">
           <h3>corresponding Core Query</h3>
         </div>
-        <div class="panel-body">
-          <p ng-bind="queryLogService.selectedQuery.queryString" style="white-space: pre; overflow-x: auto;"></p>
+        <div class="panel-body">          
+          <div ui-codemirror ui-codemirror-opts="editorOptions" ng-model="queryLogService.selectedQuery.queryString">
+          </div>
         </div>
+        
       </div>
+      
     </div>
 
   </div>

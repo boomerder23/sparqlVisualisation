@@ -1,4 +1,4 @@
-var app = angular.module('sparqlVisualiser', ['ngRoute', 'ui.bootstrap', 'ngclipboard']);
+var app = angular.module('sparqlVisualiser', ['ngRoute', 'ui.bootstrap', 'ngclipboard', 'ui.codemirror']);
 
 //configure routes
 app.config(function($routeProvider) {
@@ -182,12 +182,22 @@ app.factory('queryLogService',function ($http, $rootScope) {
 
 
 app.controller('queryLogController', function($scope,$filter, $http, $location, queryLogService) {
-	
+	//init codemirror
+	$scope.editorOptions = {
+		lineWrapping : true,
+		lineNumbers: true,
+		height : 'auto',
+		viewportMargin: Infinity,
+		scrollbarStyle: 'null',
+		mode: 'sparql'
+	};
+
 	//link data to view
 	$scope.queryLogService = queryLogService;	
     
-    //get Queries when page is loaded, so that is not empty
-    //$scope.queryLogService.getQueriesFromProxy();
+    $scope.initRowSelection = function(){
+    	$scope.selectedRow = 0;	
+    };    
     
     //link refresh function to view
     $scope.refreshQueries = function(){
