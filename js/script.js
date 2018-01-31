@@ -139,25 +139,24 @@ app.factory('queryLogService',function ($http, $rootScope) {
 	}
 
 	function extractKeywords(queryString){
-		var keywords = ["SELECT","SELECT DISTINCT","SELECT FROM",
-		"WHERE","FILTER","ORDER BY","LIMIT","UNION","INSERT","INSERT DATA",
+		var keywords = ["SELECT","WHERE","FILTER","ORDER BY","LIMIT","UNION","INSERT","INSERT DATA",
 		"GRAPH","SERVICE","OPTIONAL","BIND","MINUS","DELETE","CONSTRUCT",];
 		var keywordString = "";
 
 		keywords.forEach(function (keyword){
 			var count = 0;
-			var index = queryString.indexOf(keyword,index + keyword.length);			
+			var index = queryString.toUpperCase().indexOf(keyword,index + keyword.length);			
 			while (index != -1)
 			{
 				count++;
 				index = queryString.indexOf(keyword,index + keyword.length);								
 			}
 			if (count > 0) {
-				keywordString += keyword + "(" + count + "),";	
+				keywordString += keyword + "(" + count + "), ";	
 			}
 			
 		});
-		return keywordString;	
+		return keywordString.substring(0,keywordString.length -2);	
 	};
 
 
