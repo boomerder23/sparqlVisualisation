@@ -194,11 +194,7 @@ app.controller('queryLogController', function($scope,$filter, $http, $location, 
 	};
 
 	//link data to view
-	$scope.queryLogService = queryLogService;	
-    
-    $scope.initRowSelection = function(){
-    	$scope.selectedRow = 0;	
-    };    
+	$scope.queryLogService = queryLogService;	    
     
     //link refresh function to view
     $scope.refreshQueries = function(){
@@ -207,7 +203,7 @@ app.controller('queryLogController', function($scope,$filter, $http, $location, 
 	
 	$scope.setSelection = function(rowIndex,query) {
 		$scope.queryLogService.selectedQuery = $filter('filter')(queryLogService.receivedQueries, {'id':query.id})[0];
-		$scope.selectedRow = rowIndex;
+		$scope.queryLogService.selectedRow = rowIndex;
 	};
 
 	$scope.openVisualisation = function(query){
