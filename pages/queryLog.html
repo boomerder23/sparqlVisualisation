@@ -5,7 +5,7 @@
           <h3>Query-Log Tabelle <button class="btn btn-xs btn-primary" ng-click="refreshQueries()">Refresh</button></h3>
         </div>
         <div class="panel-body">
-          <table class="table table-bordered" ng-init="initRowSelection()">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>#</th>
@@ -15,7 +15,7 @@
                 <th>Interaction</th>
               </tr>
             </thead>
-              <tr ng-repeat="query in queryLogService.receivedQueries" ng-click="setSelection($index,query)" ng-class="{'active': $index == selectedRow}">
+              <tr ng-repeat="query in queryLogService.receivedQueries" ng-click="setSelection($index,query)" ng-class="{'active': $index == queryLogService.selectedRow}">
                 <td>{{ query.id }}</td>
                 <td style="white-space:nowrap;">{{ query.date | date : 'dd MMM yyyy , HH:mm:sss' }}</td>
                 <td style="white-space:nowrap;"> 
