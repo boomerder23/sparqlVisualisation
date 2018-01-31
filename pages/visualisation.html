@@ -11,19 +11,19 @@
             <div class="col-sm-2">
               <p>
                 <label>Id:</label>
-                <em>{{ query.id }}</em>
+                <em>{{ queryLogService.selectedQuery.id }}</em>
               </p>             
             </div>
             <div class="col-sm-4">
               <p>
                 <label>Date:</label>
-                <span>{{ query.date }}</span>
+                <span>{{ queryLogService.selectedQuery.date | date : 'dd MMM yyyy , HH:mm:sss'}}</span>
               </p>             
             </div>
             <div class="col-sm-4">
               <p>
                 <label>Status:</label>
-                <span class="label label-success">Success</span>
+                <span ng-class="{'label label-success': queryLogService.selectedQuery.success === true, 'label label-danger': queryLogService.selectedQuery.success === false}">{{ queryLogService.selectedQuery.success == true ? 'Success' : 'Failure' }}</span> {{queryLogService.selectedQuery.statusText}}
               </p>             
             </div>                           
           </div>
@@ -32,7 +32,7 @@
             <div class="col-sm-12">
               <p>
                 <label>Client:</label>
-                <span>{{ query.client }}</span>
+                <span>{{ queryLogService.selectedQuery.client }}</span>
               </p>             
             </div>                                       
           </div>
@@ -41,7 +41,7 @@
             <div class="col-sm-12">
               <p>
                 <label>User Agent:</label>
-                <span>{{ query.userAgent }}</span>
+                <span>{{ queryLogService.selectedQuery.userAgent }}</span>
               </p>             
             </div>                                       
           </div>
@@ -61,9 +61,9 @@
                     <i  ng-class="{'fa fa-caret-down': !isCollapsed, 'fa fa-caret-up' : isCollapsed}"></i>
                   </button>
 
-                  <div uib-collapse="!isCollapsed">
-                    <p ng-bind="query.prefixes" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
-                    </p> 
+                  <div uib-collapse="!isCollapsed">                    
+                    <div ui-codemirror ui-codemirror-opts="editorOptions" ng-model="queryLogService.selectedQuery.prefixes">
+              </div>  
                   </div>                 
 
                 </div>
@@ -73,20 +73,13 @@
               <div class="row" >
 
                 <div class="col-sm-12" style="" >                  
-                  <p ng-bind="query.coreQuery" style="white-space: pre; overflow-x: auto;background-color: #e5e5e5;">
-                  </p>            
+                    <div ui-codemirror ui-codemirror-opts="editorOptions" ng-model="queryLogService.selectedQuery.coreQuery">
+              </div>           
                 </div>
               </div>
 
               <div class="row" >
-                
-                <div class="col-sm-6" >                 
-                       
-                </div>
-                <div class="col-sm-6" >                  
-                  <button class="btn button-grey">edit & execute again</button>
-                  <button class="btn button-grey" ngclipboard data-clipboard-text="{{query.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>     
-                </div>
+                  <button class="btn button-grey pull-right" ngclipboard data-clipboard-text="{{queryLogService.selectedQuery.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>  
               </div>
 
             </div>            
