@@ -189,6 +189,7 @@ app.controller('queryLogController', function($scope,$filter, $http, $location, 
 		height : 'auto',
 		viewportMargin: Infinity,
 		scrollbarStyle: 'null',
+		readOnly: true,
 		mode: 'sparql'
 	};
 
@@ -245,6 +246,7 @@ app.controller('visualisationController', function($scope, queryLogService) {
 		height : 'auto',
 		viewportMargin: Infinity,
 		scrollbarStyle: 'null',
+		readOnly: true,
 		mode: 'sparql'
 	};
 
@@ -259,6 +261,7 @@ app.controller('resultsController', function($scope, $http, queryLogService) {
 		height : 'auto',
 		viewportMargin: Infinity,
 		scrollbarStyle: 'null',
+		readOnly: true,
 		mode: 'sparql'
 	};
 	
@@ -282,6 +285,7 @@ app.controller('debuggingController', function($scope) {
 		height : 'auto',
 		viewportMargin: Infinity,
 		scrollbarStyle: 'null',
+		readOnly: true,
 		mode: 'sparql'
 	};
 });
