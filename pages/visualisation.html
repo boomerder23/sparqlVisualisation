@@ -74,14 +74,13 @@
 
                 <div class="col-sm-12" style="" >                  
                     <div ui-codemirror ui-codemirror-opts="editorOptions" ng-model="queryLogService.selectedQuery.coreQuery">
-              </div>           
+                    </div> 
+                    <button class="btn button-grey pull-right" ng-click="update()" style="background-color: #c4c4c4;">update Graphic</button>  
+                    <button class="btn button-grey pull-right" ngclipboard data-clipboard-text="{{queryLogService.selectedQuery.queryString}}" style="background-color: #c4c4c4; margin-right: 6px;">copy query to clipboard</button>            
                 </div>
               </div>
 
-              <div class="row" >
-                  <button class="btn button-grey pull-right" ng-click="update()" style="background-color: #c4c4c4;">update Graphic</button>  
-                  <button class="btn button-grey pull-right" ngclipboard data-clipboard-text="{{queryLogService.selectedQuery.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>  
-              </div>
+              
 
             </div>            
             
@@ -99,9 +98,9 @@
           <h3>Query Graph <button class="btn button-grey" id="toggleLegend">Toggle Legend</button></h3>          
         </div>
 
-        <div class="panel-body">
-          <div class="row">
-            <svg data-ng-mouseleave="dragNodeService.dragNode(null)"
+        <div class="panel-body" id="queryGraph">
+                <div id="graph" class="col-sm-10">
+                <svg data-ng-mouseleave="dragNodeService.dragNode(null)"
                      data-ng-attr-view_box="0 0 {{graphSize.width}} {{graphSize.height}}"
                      xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -170,7 +169,72 @@
                         </g>
                     </g>
                 </svg>
-          </div>
-        </div>
+                </div>
+                
+                <div class="col-sm-2">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a>Graph ({{subGraphs.length}})<span class="fa arrow" data-ng-show="subGraphs.length > 0"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li data-ng-repeat="subGraph in subGraphs">
+                                    <a data-ng-bind="subGraph.getName()" data-ng-mouseover="highlightService.highlight(subGraph)"
+                                       data-ng-mouseleave="highlightService.highlight(null)"></a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li id="union1">
+                            <a>Union ({{unions.length}})<span class="fa arrow" data-ng-show="unions.length > 0"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li data-ng-repeat="union in unions">
+                                    <a data-ng-bind="union.getName()" data-ng-mouseover="highlightService.highlight(union)"
+                                       data-ng-mouseleave="highlightService.highlight(null)"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="filter1">
+                            <a>Filter ({{filters.length}})<span class="fa arrow" data-ng-show="filters.length > 0"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li data-ng-repeat="filter in filters">
+                                    <a data-ng-bind="filter.getText()" data-ng-mouseover="highlightService.highlight(filter)"
+                                       data-ng-mouseleave="highlightService.highlight(null)"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="service1">
+                            <a>Service ({{services.length}})<span class="fa arrow" data-ng-show="services.length > 0"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li data-ng-repeat="service in services">
+                                    <a data-ng-bind="service.getName()" data-ng-mouseover="highlightService.highlight(service)"
+                                       data-ng-mouseleave="highlightService.highlight(null)"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="bind1">
+                            <a>Bind ({{binds.length}})<span class="fa arrow" data-ng-show="binds.length > 0"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li data-ng-repeat="bind in binds">
+                                    <a data-ng-bind="bind.getText()" data-ng-mouseover="highlightService.highlight(bind)"
+                                       data-ng-mouseleave="highlightService.highlight(null)"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="orderby1">
+                            <a>Order by ({{orders.length}})<span class="fa arrow" data-ng-show="orders.length > 0"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li data-ng-repeat="order in orders">
+                                    <a data-ng-bind="order.getText()" data-ng-mouseover="highlightService.highlight(order)"
+                                       data-ng-mouseleave="highlightService.highlight(null)"></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="limit">
+                            <a>Limit: {{limit}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
       </div>
     </div>
