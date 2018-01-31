@@ -234,7 +234,7 @@ app.controller('queryLogController', function($scope,$filter, $http, $location, 
 	
 });
 
-app.controller('resultsController', function($scope, $http, queryLogService) {
+app.controller('resultsController', function($scope, $http, $location, queryLogService) {
 
 	$scope.editorOptions = {
 		lineWrapping : true,
@@ -251,6 +251,14 @@ app.controller('resultsController', function($scope, $http, queryLogService) {
 
 	$scope.getResults = function () {
 		$scope.queryLogService.getResultsFromQuery($scope.queryLogService.selectedQuery);
+	}
+
+	$scope.openVisualisation = function () {
+		$location.path('visualisation');	
+	}
+
+	$scope.openDebugging = function () {
+		$location.path('debugging');	
 	}
 
 	//get results after startup
@@ -1327,6 +1335,14 @@ app.controller("visualisationController", function ($scope, highlightingService,
     		parseQueryService.parse(queryLogService.selectedQuery.queryString);	
     	}    	      
     };
+
+    $scope.openResults = function () {
+		$location.path('results');	
+	}
+
+	$scope.openDebugging = function () {
+		$location.path('debugging');	
+	}
 
     $scope.$watch("parseQueryService.getObject()", function (newQuery) {
         if (newQuery === null)
