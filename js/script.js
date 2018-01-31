@@ -1,6 +1,7 @@
 var app = angular.module('sparqlVisualiser', ['ngRoute', 'ui.bootstrap', 'ngclipboard', 'ui.codemirror']);
 
 //configure routes
+//Routing Example: https://scotch.io/tutorials/single-page-apps-with-angularjs-routing-and-templating
 app.config(function($routeProvider) {
 	$routeProvider
 		//route for the home page
