@@ -6,24 +6,39 @@
         <div class="panel-body">
 
           <div class="row" style="outline: 1px ;outline-style: none; ">
-            <div class="col-sm-2">
+            
+            <div class="col-sm-1">
               <p>
                 <label>Id:</label>
                 <em>{{ queryLogService.selectedQuery.id }}</em>
-              </p>             
-            </div>
+              </p> 
+          	</div>
+            
             <div class="col-sm-4">
               <p>
                 <label>Date:</label>
                 <span>{{ queryLogService.selectedQuery.date | date : 'dd MMM yyyy , HH:mm:sss'}}</span>
               </p>             
             </div>
-            <div class="col-sm-4">
+            
+            <div class="col-sm-4" style="white-space:nowrap;">
               <p>
                 <label>Status:</label>
                 <span ng-class="{'label label-success': queryLogService.selectedQuery.success === true, 'label label-danger': queryLogService.selectedQuery.success === false}">{{ queryLogService.selectedQuery.success == true ? 'Success' : 'Failure' }}</span> {{queryLogService.selectedQuery.statusText}}
               </p>             
-            </div>                           
+            </div>
+
+            <div class="col-sm-2" >
+                <button ng-if="queryLogService.selectedQuery.success === true" ng-click="" type="button" class="btn btn-default">
+                  <i class="fa fa-television" aria-hidden="true"></i> 
+                  Visualise
+                  </button>
+                  <button ng-if="queryLogService.selectedQuery.success === false" ng-click="" type="button" class="btn btn-default" >
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
+                  Debugging
+                  </button>                            
+            </div>
+
           </div>
 
           <div class="row" style="outline: 1px ;outline-style: none; ">
@@ -72,20 +87,15 @@
 
                 <div class="col-sm-12" style="" >                  
                   	<div ui-codemirror ui-codemirror-opts="editorOptions" ng-model="queryLogService.selectedQuery.coreQuery">
-      				</div>           
+      				</div>
+      				<button class="btn button-grey pull-right" ng-click="getResults()" style="background-color: #c4c4c4;">Refresh Results</button>  
+                    <button class="btn button-grey pull-right" ngclipboard data-clipboard-text="{{queryLogService.selectedQuery.queryString}}" style="background-color: #c4c4c4; margin-right: 6px;">copy query to clipboard</button>             
                 </div>
+
               </div>
 
-              <div class="row" >
-                
-                <div class="col-sm-6" >                 
-                       
-                </div>
-                <div class="col-sm-6" >                  
-                  <button class="btn button-grey" ng-click="getResults()">Get Results</button>
-                  <button class="btn button-grey" ngclipboard data-clipboard-text="{{queryLogService.selectedQuery.queryString}}" style="background-color: #c4c4c4;">copy query to clipboard</button>     
-                </div>
-              </div>
+              
+            </div>
 
             </div>            
             
@@ -118,7 +128,7 @@
               	</tr>				           
             </table>
 
-            <p ng-if="queryLogService.selectedQuery.success === false" > No Results."</p> 
+            <p ng-if="queryLogService.selectedQuery.success === false" >No Results.</p> 
 
           
         </div>

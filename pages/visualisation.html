@@ -8,24 +8,39 @@
         <div class="panel-body">
 
           <div class="row" style="outline: 1px ;outline-style: none; ">
-            <div class="col-sm-2">
+
+            <div class="col-sm-1">
               <p>
                 <label>Id:</label>
                 <em>{{ queryLogService.selectedQuery.id }}</em>
-              </p>             
+              </p> 
             </div>
+            
             <div class="col-sm-4">
               <p>
                 <label>Date:</label>
                 <span>{{ queryLogService.selectedQuery.date | date : 'dd MMM yyyy , HH:mm:sss'}}</span>
               </p>             
             </div>
-            <div class="col-sm-4">
+            
+            <div class="col-sm-4" style="white-space:nowrap;">
               <p>
                 <label>Status:</label>
                 <span ng-class="{'label label-success': queryLogService.selectedQuery.success === true, 'label label-danger': queryLogService.selectedQuery.success === false}">{{ queryLogService.selectedQuery.success == true ? 'Success' : 'Failure' }}</span> {{queryLogService.selectedQuery.statusText}}
               </p>             
-            </div>                           
+            </div>
+
+            <div class="col-sm-2" >
+                <button ng-if="queryLogService.selectedQuery.success === true" ng-click="" type="button" class="btn btn-default">
+                  <i class="fa fa-database" aria-hidden="true"></i> 
+                  Results
+                  </button>
+                  <button ng-if="queryLogService.selectedQuery.success === false" ng-click="" type="button" class="btn btn-default" >
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
+                  Debugging
+                  </button>                            
+            </div>   
+
           </div>
 
           <div class="row" style="outline: 1px ;outline-style: none; ">
