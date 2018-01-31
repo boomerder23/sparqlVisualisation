@@ -248,7 +248,7 @@ app.controller('visualisationController', function($scope, queryLogService) {
 		mode: 'sparql'
 	};
 
-	$scope.query = queryLogService.selectedQuery;
+	$scope.queryLogService = queryLogService;
 });
 
 app.controller('resultsController', function($scope, $http, queryLogService) {
