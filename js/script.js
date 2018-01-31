@@ -238,12 +238,30 @@ app.controller('queryLogController', function($scope,$filter, $http, $location, 
 });
 
 app.controller('visualisationController', function($scope, queryLogService) {
-	console.log('inside visual controller');
+	
+	$scope.editorOptions = {
+		lineWrapping : true,
+		lineNumbers: true,
+		height : 'auto',
+		viewportMargin: Infinity,
+		scrollbarStyle: 'null',
+		mode: 'sparql'
+	};
+
 	$scope.query = queryLogService.selectedQuery;
 });
 
 app.controller('resultsController', function($scope, $http, queryLogService) {
 
+	$scope.editorOptions = {
+		lineWrapping : true,
+		lineNumbers: true,
+		height : 'auto',
+		viewportMargin: Infinity,
+		scrollbarStyle: 'null',
+		mode: 'sparql'
+	};
+	
 	//announce the Service to the scope
 	$scope.queryLogService = queryLogService;
 
@@ -257,5 +275,13 @@ app.controller('resultsController', function($scope, $http, queryLogService) {
 });
 
 app.controller('debuggingController', function($scope) {
-	$scope.message = 'Iam the Results Page';
+	
+	$scope.editorOptions = {
+		lineWrapping : true,
+		lineNumbers: true,
+		height : 'auto',
+		viewportMargin: Infinity,
+		scrollbarStyle: 'null',
+		mode: 'sparql'
+	};
 });
