@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
 			templateUrl : 'pages/results.html',
 			controller : 'resultsController'	
 		})
+		// route for the legend page
+		.when('/legend', {
+			templateUrl : 'pages/legend.html',			
+		})
 		.when('/debugging', {
 			templateUrl : 'pages/debugging.html',
 			controller : 'debuggingController'	
@@ -1342,6 +1346,10 @@ app.controller("visualisationController", function ($scope, highlightingService,
 
 	$scope.openDebugging = function () {
 		$location.path('debugging');	
+	}
+
+	$scope.openLegend = function () {
+		$location.path('legend');	
 	}
 
     $scope.$watch("parseQueryService.getObject()", function (newQuery) {
