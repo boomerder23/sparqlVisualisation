@@ -114,79 +114,79 @@
         </div>
 
         <div class="panel-body" id="queryGraph">
-                <div id="graph" class="col-sm-10" ng-if="queryLogService.selectedQuery.success === true">
-                <svg data-ng-mouseleave="dragNodeService.dragNode(null)"
-                     data-ng-attr-view_box="0 0 {{graphSize.width}} {{graphSize.height}}"
-                     xmlns="http://www.w3.org/2000/svg"
-                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                <div id="graph" class="col-sm-10">
+                  <svg data-ng-mouseleave="dragNodeService.dragNode(null)"
+                       data-ng-attr-view_box="0 0 {{graphSize.width}} {{graphSize.height}}"
+                       xmlns="http://www.w3.org/2000/svg"
+                       xmlns:xlink="http://www.w3.org/1999/xlink">
 
-                    <g id="sparql-js-graph-edges">
-                        <g data-ng-repeat="edge in edges" edge="edge" highlight="highlightService"></g>
-                    </g>
-                    <g id="sparql-js-graph-nodes">
-                        <g data-ng-repeat="node in nodes" node="node" highlight="highlightService"></g>
-                    </g>
+                      <g id="sparql-js-graph-edges">
+                          <g data-ng-repeat="edge in edges" edge="edge" highlight="highlightService"></g>
+                      </g>
+                      <g id="sparql-js-graph-nodes">
+                          <g data-ng-repeat="node in nodes" node="node" highlight="highlightService"></g>
+                      </g>
 
-                    <g id="sparql-js-graph-sub-graphs">
-                        <g class="sub-graph"
-                           data-ng-repeat="subGraph in subGraphs"
-                           data-ng-attr-transform="translate({{subGraph.getNodeList()[0].getX() + subGraph.getNodeList()[0].getEllipseParameterX()}}, {{subGraph.getNodeList()[0].getY() - subGraph.getNodeList()[0].getEllipseParameterY() - 24}})"
-                           data-ng-mouseover="highlightService.highlight(subGraph)"
-                           data-ng-mouseleave="highlightService.highlight(null)"
-                           data-ng-class="{unhighlighted: !highlightService.isHighlighted(subGraph)}">
-                            <image height="24" xlink:href="./glyphicons/glyphicons-692-tree-structure.png"
-                                   width="26"></image>
-                        </g>
-                    </g>
-                    <g id="sparql-js-graph-filters">
-                        <g class="filter"
-                           data-ng-repeat="filter in filters"
-                           data-ng-attr-transform="translate({{filter.getNodeList()[0].getX() + filter.getNodeList()[0].getEllipseParameterX()}}, {{filter.getNodeList()[0].getY() + filter.getNodeList()[0].getEllipseParameterY()}})"
-                           data-ng-mouseover="highlightService.highlight(filter)"
-                           data-ng-mouseleave="highlightService.highlight(null)"
-                           data-ng-class="{unhighlighted: !highlightService.isHighlighted(filter)}"
-                           data-ng-show="filter.getNodeList().length > 0">
-                            <image height="24" xlink:href="./glyphicons/glyphicons-321-filter.png"
-                                   width="20"></image>
-                        </g>
-                    </g>
-                    <g id="sparql-js-graph-binds">
-                        <g class="bind"
-                           data-ng-repeat="bind in binds"
-                           data-ng-attr-transform="translate({{bind.getNodeList()[0].getX() - bind.getNodeList()[0].getEllipseParameterX() - 20}}, {{bind.getNodeList()[0].getY() + bind.getNodeList()[0].getEllipseParameterY()}})"
-                           data-ng-mouseover="highlightService.highlight(bind)"
-                           data-ng-mouseleave="highlightService.highlight(null)"
-                           data-ng-class="{unhighlighted: !highlightService.isHighlighted(bind)}"
-                           data-ng-show="bind.getNodeList().length > 0">
-                            <image height="24" xlink:href="./glyphicons/glyphicons-51-link.png" width="20"></image>
-                        </g>
-                    </g>
-                    <g id="sparql-js-graph-orders">
-                        <g class="order"
-                           data-ng-repeat="order in orders"
-                           data-ng-attr-transform="translate({{order.getNodeList()[0].getX() - order.getNodeList()[0].getEllipseParameterX() - 24}}, {{order.getNodeList()[0].getY() - order.getNodeList()[0].getEllipseParameterY() - 23}})"
-                           data-ng-mouseover="highlightService.highlight(order)"
-                           data-ng-mouseleave="highlightService.highlight(null)"
-                           data-ng-class="{unhighlighted: !highlightService.isHighlighted(order)}">
-                            <image height="23" xlink:href="./glyphicons/glyphicons-404-sorting.png"
-                                   width="24"></image>
-                        </g>
-                    </g>
-                    <g id="sparql-js-graph-services">
-                        <g class="service"
-                           data-ng-repeat="service in services"
-                           data-ng-attr-transform="translate({{service.getNodeList()[0].getX() - 13}}, {{service.getNodeList()[0].getY() + service.getNodeList()[0].getEllipseParameterY() + 3}})"
-                           data-ng-mouseover="highlightService.highlight(service)"
-                           data-ng-mouseleave="highlightService.highlight(null)"
-                           data-ng-class="{unhighlighted: !highlightService.isHighlighted(service)}">
-                            <image height="26" xlink:href="./glyphicons/glyphicons-197-exclamation-sign.png"
-                                   width="26"></image>
-                        </g>
-                    </g>
-                </svg>
+                      <g id="sparql-js-graph-sub-graphs">
+                          <g class="sub-graph"
+                             data-ng-repeat="subGraph in subGraphs"
+                             data-ng-attr-transform="translate({{subGraph.getNodeList()[0].getX() + subGraph.getNodeList()[0].getEllipseParameterX()}}, {{subGraph.getNodeList()[0].getY() - subGraph.getNodeList()[0].getEllipseParameterY() - 24}})"
+                             data-ng-mouseover="highlightService.highlight(subGraph)"
+                             data-ng-mouseleave="highlightService.highlight(null)"
+                             data-ng-class="{unhighlighted: !highlightService.isHighlighted(subGraph)}">
+                              <image height="24" xlink:href="./glyphicons/glyphicons-692-tree-structure.png"
+                                     width="26"></image>
+                          </g>
+                      </g>
+                      <g id="sparql-js-graph-filters">
+                          <g class="filter"
+                             data-ng-repeat="filter in filters"
+                             data-ng-attr-transform="translate({{filter.getNodeList()[0].getX() + filter.getNodeList()[0].getEllipseParameterX()}}, {{filter.getNodeList()[0].getY() + filter.getNodeList()[0].getEllipseParameterY()}})"
+                             data-ng-mouseover="highlightService.highlight(filter)"
+                             data-ng-mouseleave="highlightService.highlight(null)"
+                             data-ng-class="{unhighlighted: !highlightService.isHighlighted(filter)}"
+                             data-ng-show="filter.getNodeList().length > 0">
+                              <image height="24" xlink:href="./glyphicons/glyphicons-321-filter.png"
+                                     width="20"></image>
+                          </g>
+                      </g>
+                      <g id="sparql-js-graph-binds">
+                          <g class="bind"
+                             data-ng-repeat="bind in binds"
+                             data-ng-attr-transform="translate({{bind.getNodeList()[0].getX() - bind.getNodeList()[0].getEllipseParameterX() - 20}}, {{bind.getNodeList()[0].getY() + bind.getNodeList()[0].getEllipseParameterY()}})"
+                             data-ng-mouseover="highlightService.highlight(bind)"
+                             data-ng-mouseleave="highlightService.highlight(null)"
+                             data-ng-class="{unhighlighted: !highlightService.isHighlighted(bind)}"
+                             data-ng-show="bind.getNodeList().length > 0">
+                              <image height="24" xlink:href="./glyphicons/glyphicons-51-link.png" width="20"></image>
+                          </g>
+                      </g>
+                      <g id="sparql-js-graph-orders">
+                          <g class="order"
+                             data-ng-repeat="order in orders"
+                             data-ng-attr-transform="translate({{order.getNodeList()[0].getX() - order.getNodeList()[0].getEllipseParameterX() - 24}}, {{order.getNodeList()[0].getY() - order.getNodeList()[0].getEllipseParameterY() - 23}})"
+                             data-ng-mouseover="highlightService.highlight(order)"
+                             data-ng-mouseleave="highlightService.highlight(null)"
+                             data-ng-class="{unhighlighted: !highlightService.isHighlighted(order)}">
+                              <image height="23" xlink:href="./glyphicons/glyphicons-404-sorting.png"
+                                     width="24"></image>
+                          </g>
+                      </g>
+                      <g id="sparql-js-graph-services">
+                          <g class="service"
+                             data-ng-repeat="service in services"
+                             data-ng-attr-transform="translate({{service.getNodeList()[0].getX() - 13}}, {{service.getNodeList()[0].getY() + service.getNodeList()[0].getEllipseParameterY() + 3}})"
+                             data-ng-mouseover="highlightService.highlight(service)"
+                             data-ng-mouseleave="highlightService.highlight(null)"
+                             data-ng-class="{unhighlighted: !highlightService.isHighlighted(service)}">
+                              <image height="26" xlink:href="./glyphicons/glyphicons-197-exclamation-sign.png"
+                                     width="26"></image>
+                          </g>
+                      </g>
+                  </svg>
                 </div>
                 
-                <div class="col-sm-2" ng-if="queryLogService.selectedQuery.success === true">
+                <div class="col-sm-2">
                     <ul class="nav" id="side-menu">
                         <li>
                             <a>Graph ({{subGraphs.length}})<span class="fa arrow" data-ng-show="subGraphs.length > 0"></span></a>

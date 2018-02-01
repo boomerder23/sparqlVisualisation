@@ -285,28 +285,6 @@ app.controller('debuggingController', function($scope) {
 
 
 
-
-app.controller('visualisationController_old', function($scope, queryLogService, parseQueryService) {
-	
-	$scope.editorOptions = {
-		lineWrapping : true,
-		lineNumbers: true,
-		height : 'auto',
-		viewportMargin: Infinity,
-		scrollbarStyle: 'null',
-		readOnly: true,
-		mode: 'sparql'
-	};
-
-	$scope.queryLogService = queryLogService;
-	$scope.parseQueryService = parseQueryService;
-
-	$scope.update = function(){
-		$scope.parseQueryService.parse(queryLogService.selectedQuery.queryString);
-	};
-});
-
-
 //from here copied from source sparql.js
 
 var sparql;
@@ -1335,9 +1313,7 @@ app.controller("visualisationController", function ($scope, highlightingService,
     $scope.truncateLength = 250;
 
     $scope.update = function () {
-    	if (queryLogService.selectedQuery.success) {
-    		parseQueryService.parse(queryLogService.selectedQuery.queryString);	
-    	}    	      
+		parseQueryService.parse(queryLogService.selectedQuery.queryString);  	      
     };
 
     $scope.openResults = function () {
